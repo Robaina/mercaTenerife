@@ -1,0 +1,154 @@
+:root {
+  --scale-factor: 1;
+  --calendar-width: 298px;
+  --fontColor: rgb(221, 221, 221);
+  --backgroundColor: rgb(51, 51, 51);
+  --backgroundColor2: rgb(250, 250, 250);
+  --fancyColor: #0b98d9;
+  --titleColor: rgb(236, 236, 236);
+}
+
+html, body {
+  background-color: var(--backgroundColor);
+  /* background-image: url('clean-gray-paper.png'); */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#title-container {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  width: 100vw;
+  height: 400px;
+  margin-left: 0vw;
+  margin-bottom: 5vh;
+  /* padding-top: 3.5vh; */
+  text-align: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-image: url('Bn_Cruceros.jpg'); */
+  /* background-image: url('ocean.jpg'); */
+}
+
+#title {
+  font-size: calc(0.18 * var(--calendar-width));
+  text-shadow: 4px 4px 12px black;
+  font-family: 'Anton', sans-serif;
+  color: var(--titleColor);
+  max-width: 90%;
+}
+
+.plot {
+  /* height: 50vw; */
+  width: 80vw;
+  margin-left: 10vw;
+  margin-top: 0vh;
+}
+
+.centering-container {
+  width: 100vw;
+  height: auto;
+  text-align: center;
+}
+
+#about {
+  --width: 60vw;
+  width: var(--width);
+  margin-top: calc(0.15 * var(--width));
+  margin-left: calc((100vw - var(--width)) / 2);
+  color: var(--fontColor);
+}
+#about > h1 {
+  text-align: center;
+  font-size: calc(0.05 * var(--calendar-width));
+}
+#about > p {
+  text-align: justify;
+  font-size: calc(0.05 * var(--calendar-width));
+}
+
+#footer {
+  font-size: calc(0.04 * var(--calendar-width));
+}
+
+a {
+  text-decoration: none;
+  color: var(--fancyColor);
+}
+
+form {
+  margin-top: 5vh;
+  margin-bottom: 3vh;
+  margin-left: calc( (100vw - var(--calendar-width)) / 2 );
+  z-index: 2;
+  color: inherit;
+}
+
+/* #form-description {
+  font-size: 1em;
+  margin-left: calc(0.39 * var(--calendar-width));
+  margin-bottom: 1vh;
+} */
+
+#select-list {
+  font-size: 1em;
+  text-align-last: center;
+  color: var(--fancyColor);
+  background-color: var(--backgroundColor);
+  width: var(--calendar-width);
+  height: calc(0.1 * var(--calendar-width));
+}
+
+select option {
+  background-color: var(--body-color);
+  font-size: calc(0.05 * var(--calendar-width));
+}
+
+::-webkit-scrollbar {
+  width: 1vw;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0.25vw grey;
+  border-radius: 0.5vw;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fancyColor);
+  border-radius: 0.5vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fancyColor);
+}
+
+@media only screen and (max-width: 400px) {
+
+  #title-container {
+    height: 250px;
+  }
+
+  #title {
+    font-size: calc(0.15 * var(--calendar-width));
+  }
+
+  #about {
+    --width: calc(1 * var(--calendar-width));
+    width: var(--width);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .plot {
+    width: 100vw;
+    margin-left: 0vw;
+  }
+}

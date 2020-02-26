@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Gráficos interactivos de ventas de frutas y verduras en Mercatenerife">
+    <meta name="keywords" content="web development, Mercatenerife, frutas, verduras, economía, Tenerife">
+    <meta name="author" content="Semidan Robaina Estevez">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Coda" rel="stylesheet">
+    <title>Datos Mercatenerife</title>
+    <!-- <link rel="icon" type="image/png" href="anchor.png"> -->
+
+    <link rel="stylesheet" href="master.css">
+    <script src="codigos.json"></script>
+    <script src="mejores_meses.json"></script>
+    <script src="kilosTimeSeries.json"></script>
+    <script src="preciosTimeSeries.json"></script>
+    <!-- <script scr="pleaserotate.min.js"></script> -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <div id="title-container">
+      <div id="title">Estadísticas de Mercatenerife</div>
+    </div>
+
+    <form id="form">
+      <!-- <p id="form-description">Buque:</p> -->
+      <select name="producto" id="select-list" onchange="changeSelectedProduct()">
+      </select>
+    </form>
+
+    <div class="plot" id="kilosplot"></div>
+    <div class="plot" id="preciosplot"></div>
+
+
+    <article id="about">
+      <h1>¿Qué es esto?</h1>
+      <p>Esta aplicación muestra el calendario de llegadas previstas de cruceros al puerto de Santa Cruz de Tenerife. Los datos son obtenidos de la plataforma de datos abiertos de la <a href="http://risp.puertosdetenerife.org/organization/autoridad-portuaria-santa-cruz-de-tenerife">Autoridad Portuaria de Tenerife</a>. Las llegadas se han clasificado de acorde al muelle previsto de atraque &mdash; representado en colores en el calendario. Cada punto de color en el calendario representa una nueva llegada prevista.</p>
+
+      <p>Toca o cliquea sobre un día en el calendario para mostrar más información sobre los cruceros que llegarán ese día; como el tiempo que va a estar atracado, el origen y destino del crucero o la compañía que se encarga de la logística del atraque.</p>
+
+      <footer id="footer">
+        <p><a href="https://semidanrobaina.com">Semidán Robaina Estévez</a>, 2020.<br/>
+        Usando <a href="https://www.papaparse.com/">Papaparse.js</a> y <a href="https://github.com/Robaina/jsCalendar">jsCalendar</a> (modificada).</p>
+      </footer>
+    </article>
+
+
+
+   <script src="script.js"></script>
+  </body>
+</html>
