@@ -46,6 +46,32 @@ html, body {
   max-width: 90%;
 }
 
+.button-container {
+  text-align: center;
+}
+
+.button {
+  padding: 1vmax;
+  font-size: 1.5em;
+  width: auto;
+  background-color: var(--fancyColor);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  margin: 1em 0em;
+  cursor: pointer;
+  border-radius: 1vmax;
+  user-select: none;
+  outline: none;
+  box-shadow: 0 0.5vmax rgb(221, 221, 221);
+  z-index: 2;
+}
+.button:active {
+  box-shadow: 0 0.3vmax rgb(102, 102, 102);
+  transform: translateY(4px);
+}
+
 .plot {
   /* height: 50vw; */
   width: 80vw;
@@ -85,9 +111,10 @@ a {
 }
 
 form {
+  width: 60vw;
   margin-top: 5vh;
   margin-bottom: 3vh;
-  margin-left: calc( (100vw - var(--calendar-width)) / 2 );
+  margin-left: calc( (100vw - 60vw) / 2 );
   z-index: 2;
   color: inherit;
 }
@@ -99,17 +126,17 @@ form {
 } */
 
 #select-list {
-  font-size: 1em;
+  font-size: 1.5em;
   text-align-last: center;
   color: var(--fancyColor);
   background-color: var(--backgroundColor);
-  width: var(--calendar-width);
+  width: 60vw;
   height: calc(0.1 * var(--calendar-width));
 }
 
 select option {
   background-color: var(--body-color);
-  font-size: calc(0.05 * var(--calendar-width));
+  font-size: 1em;
 }
 
 ::-webkit-scrollbar {

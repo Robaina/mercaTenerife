@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="master.css">
     <script src="codigos.json"></script>
     <script src="mejores_meses.json"></script>
-    <script src="kilosTimeSeries.json"></script>
-    <script src="preciosTimeSeries.json"></script>
-    <!-- <script scr="pleaserotate.min.js"></script> -->
+    <script src="kilosTimeSeriesImputed.json"></script>
+    <script src="preciosTimeSeriesImputed.json"></script>
+    <!-- <script scr="pleaserotate.min.js"</script> -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   </head>
@@ -31,12 +31,20 @@
 
     <form id="form">
       <!-- <p id="form-description">Buque:</p> -->
-      <select name="producto" id="select-list" onchange="changeSelectedProduct()">
+      <select name="producto" id="select-list" onchange="plotSelectedProduct()">
       </select>
     </form>
 
+    <div class="button-container">
+      <button type="button" class="button" id="select-mean-data" onclick="selectMeanData()">Media</button>
+      <button type="button" class="button" id="select-full-data" onclick="selectFullData()">Completo</button>
+      <button type="button" class="button" id="select-local-data" onclick="selectLocalToPlot()">Local</button>
+      <button type="button" class="button" id="select-importacion-data" onclick="selectImportacionToPlot()">Importación</button>
+    </div>
+
     <div class="plot" id="kilosplot"></div>
     <div class="plot" id="preciosplot"></div>
+    <div id="pieplot"></div>
 
 
     <article id="about">

@@ -3,10 +3,6 @@
    Semidán Robaina Estévez, 2020
 */
 
-// if (window.innerHeight > window.innerWidth) {
-//     alert("Please use Landscape!");
-// }
-
 if (window.matchMedia("(orientation: portrait)").matches) {
    alert("Please use Landscape!");
 }
@@ -16,6 +12,35 @@ let backgroundColor = getComputedStyle(document.documentElement)
 let fontColor = getComputedStyle(document.documentElement)
     .getPropertyValue("--fontColor");
 
+let plotOptions = {
+  "plot_mean": false,
+  "plot_local": true,
+  "plot_importacion": true
+};
+
+const local_color = "rgb(9, 133, 208)";
+const impor_color = "rgb(221, 125, 6)";
+const moda_color = "rgb(167, 167, 167)";
+
+let sum = function(array) {
+  return array.reduce((a, b) => a + b, 0);
+}
+let mean = function(array) {
+  return sum(array) / array.length
+}
+let std = function(array) {
+  let mean_x = mean(array);
+  let variance_x = mean(array.map(x => (x - mean_x)**2));
+  let std_x = Math.sqrt(variance_x);
+  return std_x
+}
+
+function getUniqueValues(array) {
+  const unique = (value, index, self) => {
+    return self.indexOf(value) === index
+  };
+  return array.filter(unique)
+}
 
 function initializeForm(products) {
   let form = 	document.getElementById("select-list");
@@ -30,20 +55,46 @@ function initializeForm(products) {
     }
     form.add(option);
   }
-  changeSelectedProduct();
+  plotSelectedProduct();
 }
 
 function getKeyByValue(object, value) {
 	return Object.keys(object).find(key => object[key] === value);
 }
 
-function changeSelectedProduct() {
+function plotSelectedProduct() {
   let selector = document.getElementById("select-list");
   let selected_product_code = selector[selector.selectedIndex].value;
-  plotKilosBarPlot(selected_product_code);
-  plotPreciosPlot(selected_product_code);
-  console.log(mejores_meses[selected_product_code]);
-  console.log(computeLocallyProducedFraction(selected_product_code, 2019));
+  plotKilosBarPlot(selected_product_code, plotOptions);
+  plotPreciosPlot(selected_product_code, plotOptions);
+  plotLocalFraction(selected_product_code);
+  // console.log(mejores_meses[selected_product_code]);
+}
+
+function selectMeanData() {
+  plotOptions.plot_mean_values = true;
+  plotSelectedProduct();
+}
+
+function selectFullData() {
+  plotOptions.plot_mean_values = false;
+  plotSelectedProduct();
+}
+
+function selectLocalToPlot() {
+  plotOptions.plot_local = !plotOptions.plot_local;
+  if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
+    plotOptions.plot_local = true;
+  }
+  plotSelectedProduct();
+}
+
+function selectImportacionToPlot() {
+  plotOptions.plot_importacion = !plotOptions.plot_importacion;
+  if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
+    plotOptions.plot_importacion = true;
+  }
+  plotSelectedProduct();
 }
 
 function extractKilosPlotData(code) {
@@ -51,6 +102,74 @@ function extractKilosPlotData(code) {
   let data_local = Object.values(kilos[code].local);
   let data_impor = Object.values(kilos[code].importacion);
   return {"fechas": fechas, "local": data_local, "importacion": data_impor}
+}
+
+function extractKilosMeanPlotData(code) {
+  let local_data = kilos[code].local;
+  let impor_data = kilos[code].importacion;
+  let fechas = Object.keys(kilos[code].local);
+  const months = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+   "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+
+  let mean_values = {"local": {}, "importacion": {}};
+  for (let month of months) {
+    let filtered_fechas = fechas.filter(
+      fecha => fecha.split("_")[0] === month);
+    try {
+      mean_values.local[month] = mean(filtered_fechas.map(
+        fecha => local_data[fecha]));
+    }
+    catch(err) {
+      mean_values.local[month] = 0;
+    }
+    try {
+      mean_values.importacion[month] = mean(filtered_fechas.map(
+        fecha => impor_data[fecha]));
+    }
+    catch(err) {
+      mean_values.importacion[month] = 0;
+    }
+  }
+  return mean_values
+}
+
+function extractPreciosMeanPlotData(code) {
+  let fechas = Object.keys(precios[code].min.local);
+  const months = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+   "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+  let mean_values = {"local": {"min": {}, "max": {}, "moda": {}},
+   "importacion": {"min": {}, "max": {}, "moda": {}}};
+  for (let month of months) {
+    let filtered_fechas = fechas.filter(
+      fecha => fecha.split("_")[0] === month);
+    try {
+      mean_values.local.min[month] = mean(filtered_fechas.map(
+        fecha => precios[code].min.local[fecha]));
+      mean_values.local.max[month] = mean(filtered_fechas.map(
+        fecha => precios[code].max.local[fecha]));
+      mean_values.local.moda[month] = mean(filtered_fechas.map(
+        fecha => precios[code].moda.local[fecha]));
+    }
+    catch(err) {
+      mean_values.local.min[month] = NaN;
+      mean_values.local.max[month] = NaN;
+      mean_values.local.moda[month] = NaN;
+    }
+    try {
+      mean_values.importacion.min[month] = mean(filtered_fechas.map(
+        fecha => precios[code].min.importacion[fecha]));
+      mean_values.importacion.max[month] = mean(filtered_fechas.map(
+        fecha => precios[code].max.importacion[fecha]));
+      mean_values.importacion.moda[month] = mean(filtered_fechas.map(
+        fecha => precios[code].moda.importacion[fecha]));
+    }
+    catch(err) {
+      mean_values.importacion.min[month] = NaN;
+      mean_values.importacion.max[month] = NaN;
+      mean_values.importacion.moda[month] = NaN;
+    }
+  }
+  return mean_values
 }
 
 function extractPreciosPlotData(code) {
@@ -68,9 +187,6 @@ function extractPreciosPlotData(code) {
 
 function computeLocallyProducedFraction(code, year=null) {
   let fechas = Object.keys(kilos[code].local);
-  let sum = function(array) {
-    return array.reduce((a, b) => a + b, 0);
-  }
   if (year === null) {
     let local_values = Object.values(kilos[code].local);
     let impor_values = Object.values(kilos[code].importacion);
@@ -87,38 +203,98 @@ function computeLocallyProducedFraction(code, year=null) {
   }
 }
 
-function plotKilosBarPlot(code) {
-  let data = extractKilosPlotData(code);
+function filterKilosDataByYear(product_data, year) {
+  let filtered_data = {"local": {}, "importacion": {}};
+  let fechas = Object.keys(product_data.local);
+  let = filtered_fechas = fechas.filter(
+    fecha => fecha.split("_")[1] === String(year)
+  );
+  for (let fecha of filtered_fechas) {
+    filtered_data.local[fecha] = product_data.local[fecha];
+    filtered_data.importacion[fecha] = product_data.importacion[fecha];
+  }
+  return filtered_data
+}
+
+function filterPreciosDataByYear(product_data, year) {
+  let filtered_data = {"min": {"local": {}, "importacion": {}},
+   "max": {"local": {}, "importacion": {}},
+   "moda": {"local": {}, "importacion": {}}};
+  let fechas = Object.keys(product_data.local);
+  let = filtered_fechas = fechas.filter(
+    fecha => fecha.split("_")[1] === String(year)
+  );
+  for(let fecha of filtered_fechas) {
+    filtered_data.min.local[fecha] = product_data.min.local[fecha];
+    filtered_data.min.importacion[fecha] = product_data.min.importacion[fecha];
+    filtered_data.max.local[fecha] = product_data.max.local[fecha];
+    filtered_data.max.importacion[fecha] = product_data.max.importacion[fecha];
+    filtered_data.moda.local[fecha] = product_data.moda.local[fecha];
+    filtered_data.moda.importacion[fecha] = product_data.moda.importacion[fecha];
+  }
+  return filtered_data
+}
+
+
+function plotKilosBarPlot(code, options={"plot_mean_values": false, "plot_local": true, "plot_importacion": true}) {
+
+  let x_tick_array = [];
+  let local_array = [];
+  let impor_array = [];
+
+  if (options.plot_mean_values) {
+    let data = extractKilosMeanPlotData(code);
+    x_tick_array = Object.keys(data.local);
+    local_array = Object.values(data.local);
+    impor_array = Object.values(data.importacion);
+  } else {
+    let data = extractKilosPlotData(code);
+    let years = data.fechas.map(f => f.split("_")[1]);
+    let months = data.fechas.map(f => f.split("_")[0].slice(0, 3));
+    x_tick_array = [years, months];
+    local_array = data.local;
+    impor_array = data.importacion;
+  }
+
+  let plot_data;
   let product_name = codigos[code];
   let trace1 = {
-    x: data.fechas,
-    y: data.local,
+    x: x_tick_array,
+    y: local_array,
     name: "Local",
     type: "bar",
     opacity: 0.5,
     marker: {
-      color: "rgb(9, 133, 208)",
+      color: local_color,
       line: {
-        color: 'rgb(8,48,107)',
+        color: local_color,
         width: 0
       }
     }
   };
   let trace2 = {
-    x: data.fechas,
-    y: data.importacion,
+    x: x_tick_array,
+    y: impor_array,
     name: "Importación",
     type: "bar",
     opacity: 0.5,
     marker: {
-      color: "rgb(221, 125, 6)",
+      color: impor_color,
       line: {
-        color: 'rgb(221, 125, 6)',
+        color: impor_color,
         width: 0
       }
     }
   };
-  let plot_data = [trace1, trace2];
+
+  if (options.plot_local && !options.plot_importacion) {
+    plot_data = [trace1];
+  } else if (!options.plot_local && options.plot_importacion) {
+    plot_data = [trace2];
+  } else if (options.plot_local && options.plot_importacion) {
+    plot_data = [trace1, trace2];
+  }
+
   let layout = {
     barmode: "stack",
     title: `Kilos de ${product_name} producidos`,
@@ -127,8 +303,14 @@ function plotKilosBarPlot(code) {
     },
     xaxis: {
       tickfont: {
-        size: 5
-      }
+        size: 10
+      },
+      // tickangle: 90,
+      // tickson: "boundaries",
+      // ticklen: 15,
+      // showdividers: true,
+      // dividercolor: 'grey',
+      // dividerwidth: 2
     },
     yaxis: {"title": "Kg"},
     plot_bgcolor: backgroundColor,
@@ -148,70 +330,117 @@ function plotKilosBarPlot(code) {
   Plotly.newPlot("kilosplot", plot_data, layout, config);
 }
 
-function plotPreciosPlot(code) {
-  let data = extractPreciosPlotData(code);
+function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local": true, "plot_importacion": true}) {
+  let x_tick_array = [];
+  let local_min_array = [];
+  let local_max_array = [];
+  let local_moda_array = [];
+  let impor_min_array = [];
+  let impor_max_array = [];
+  let impor_moda_array = [];
+
+  const impute_nans = function(array) {
+    let imputed_array = [...array];
+    let first_non_nan = array.findIndex(number => !isNaN(number));
+    for (let i=first_non_nan + 1; i<array.length; i++) {
+      if(isNaN(array[i])) {
+        imputed_array[i] = imputed_array[i - 1];
+      }
+    }
+    return imputed_array
+  }
+
+  if (options.plot_mean_values) {
+    let data = extractPreciosMeanPlotData(code);
+    x_tick_array = Object.keys(data.local.min);
+    local_min_array = Object.values(data.local.min);
+    impor_min_array = Object.values(data.importacion.min);
+    local_max_array = Object.values(data.local.max);
+    impor_max_array = Object.values(data.importacion.max);
+    local_moda_array = Object.values(data.local.moda);
+    impor_moda_array = Object.values(data.importacion.moda);
+  } else {
+    let data = extractPreciosPlotData(code);
+    let years = data.fechas.map(f => f.split("_")[1]);
+    let months = data.fechas.map(f => f.split("_")[0].slice(0, 3));
+    x_tick_array = [years, months];
+    local_min_array = data.min_local;
+    local_max_array = data.max_local;
+    local_moda_array = data.moda_local;
+    impor_min_array = data.min_impor;
+    impor_max_array = data.max_impor;
+    impor_moda_array = data.moda_impor;
+  }
+
+  let plot_data;
   let product_name = codigos[code];
   let trace_min_local = {
-    x: data.fechas,
-    y: data.min_local,
+    x: x_tick_array,
+    y: impute_nans(local_min_array),
     name: "Local (min)",
     showlegend: false,
     line: {
-      color: "rgb(9, 133, 208)"
+      color: local_color
     }
   };
   let trace_max_local = {
-    x: data.fechas,
-    y: data.max_local,
+    x: x_tick_array,
+    y: impute_nans(local_max_array),
     name: "Local (max)",
     showlegend: false,
     fill: 'tonexty',
     line: {
-      color: "rgb(9, 133, 208)"
+      color: local_color
     }
   };
   let trace_moda_local = {
-    x: data.fechas,
-    y: data.moda_local,
+    x: x_tick_array,
+    y: impute_nans(local_moda_array),
     name: "Local",
     line: {
-      color: "rgb(0, 78, 125)",
+      color: local_color,
       dash: 'dashdot'
     }
   };
   let trace_min_impor = {
-    x: data.fechas,
-    y: data.min_impor,
+    x: x_tick_array,
+    y: impute_nans(impor_min_array),
     name: "Importación (min)",
     showlegend: false,
-    fill: "tozeroy",
     fillcolor: "transparent",
     line: {
-      color: "rgb(208, 138, 3)"
+      color: impor_color
     }
   };
   let trace_max_impor = {
-    x: data.fechas,
-    y: data.max_impor,
+    x: x_tick_array,
+    y: impute_nans(impor_max_array),
     name: "Importación (max)",
     showlegend: false,
     fill: 'tonexty',
     line: {
-      color: "rgb(208, 138, 3)"
+      color: impor_color
     }
   };
   let trace_moda_impor = {
-    x: data.fechas,
-    y: data.moda_impor,
+    x: x_tick_array,
+    y: impute_nans(impor_moda_array),
     name: "Importación",
     line: {
-      color: "rgb(189, 108, 0)",
+      color: impor_color,
       dash: "dashdot"
     }
   };
 
-  let plot_data = [trace_min_local, trace_max_local, trace_moda_local,
-                   trace_min_impor, trace_max_impor, trace_moda_impor];
+  if (options.plot_local && !options.plot_importacion) {
+    plot_data = [trace_min_local, trace_max_local, trace_moda_local];
+  } else if (!options.plot_local && options.plot_importacion) {
+    plot_data = [trace_min_impor, trace_max_impor, trace_moda_impor];
+  } else if (options.plot_local && options.plot_importacion) {
+    plot_data = [trace_min_local, trace_max_local, trace_moda_local,
+                 trace_min_impor, trace_max_impor, trace_moda_impor];
+  }
+
   let layout = {
    title: `Evolución de precios de ${product_name}`,
    mode: "lines",
@@ -220,9 +449,14 @@ function plotPreciosPlot(code) {
    },
    xaxis: {
      tickfont: {
-       size: 5
+       size: 10
      },
-     tickangle: 90
+     // tickson: "boundaries",
+     // ticklen: 15,
+     // showdividers: true,
+     // dividercolor: 'grey',
+     // dividerwidth: 2,
+     // tickangle: 90
    },
    yaxis: {title: "€ / Kg"},
    plot_bgcolor: backgroundColor,
@@ -240,7 +474,35 @@ function plotPreciosPlot(code) {
   };
   let config = {responsive: true};
   Plotly.newPlot("preciosplot", plot_data, layout, config);
+  // console.log(plot_data[0].y, plot_data[1].y);
 }
+
+
+function plotLocalFraction(code, year=null) {
+  let local_fraction = computeLocallyProducedFraction(code, year);
+  let data = [{
+    values: [local_fraction, 1 - local_fraction],
+    labels: ['Local', 'Importación'],
+    type: 'pie',
+    hoverinfo: 'label',
+    hole: .4,
+    marker: {
+      colors: [local_color, impor_color]
+    },
+  }];
+
+  let layout = {
+    height: 400,
+    width: 500,
+    plot_bgcolor: backgroundColor,
+    paper_bgcolor: backgroundColor,
+    font: {
+      color: fontColor
+    }
+  };
+  Plotly.newPlot('pieplot', data, layout);
+}
+
 
 
 initializeForm(codigos);
