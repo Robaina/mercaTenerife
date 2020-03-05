@@ -74,7 +74,7 @@ function deployPictureGrid(products) {
     grid_item.setAttribute("class", "grid_item");
     grid_item.setAttribute("tabindex", "0");
     let innerHTML = `<div class="grid_item_title">${code}, ${products[code].capitalize()}</div>
-    <img class="thumbnail" id="${code}" src="/mercaTenerife/Resized_Photos/${photo_name}" alt="Responsive image"\>`;
+    <img class="thumbnail" id="${code}" src="https://semidanrobaina.com/mercaTenerife/Resized_Photos/${photo_name}" alt="Responsive image"\>`;
     grid_item.innerHTML = innerHTML;
     grid_item.onclick = function(elem) {
       plotSelectedProduct(elem.target.id);
