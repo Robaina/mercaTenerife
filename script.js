@@ -3,6 +3,12 @@
    Semidán Robaina Estévez, 2020
 */
 
+Object.defineProperty(String.prototype, "capitalize", {
+	value: function() {
+		return this.slice(0, 1).toUpperCase() + this.slice(1, this.length).toLowerCase()
+	}
+});
+
 if (window.matchMedia("(orientation: portrait)").matches) {
    alert("Please use Landscape!");
 }
@@ -21,6 +27,7 @@ let plotOptions = {
 const local_color = "rgb(9, 133, 208)";
 const impor_color = "rgb(221, 125, 6)";
 const moda_color = "rgb(167, 167, 167)";
+const default_product_code = 21206;
 
 let sum = function(array) {
   return array.reduce((a, b) => a + b, 0);
@@ -58,16 +65,37 @@ function initializeForm(products) {
   plotSelectedProduct();
 }
 
+function deployPictureGrid(products) {
+  let grid = document.getElementById("grid_container");
+  for (let code of Object.keys(products)) {
+    let photo_name = Object.keys(
+      product_pics).includes(code)? product_pics[code]: "no_photo.jpg";
+    let grid_item = document.createElement("div");
+    grid_item.setAttribute("class", "grid_item");
+    grid_item.setAttribute("tabindex", "0");
+    let innerHTML = `<div class="grid_item_title">${code}, ${products[code].capitalize()}</div>
+    <img class="thumbnail" id="${code}" src="/Resized_Photos/${photo_name}" alt="Responsive image"\>`;
+    grid_item.innerHTML = innerHTML;
+    grid_item.onclick = function(elem) {
+      plotSelectedProduct(elem.target.id);
+    };
+    grid.appendChild(grid_item);
+  }
+
+}
+
 function getKeyByValue(object, value) {
 	return Object.keys(object).find(key => object[key] === value);
 }
 
-function plotSelectedProduct() {
-  let selector = document.getElementById("select-list");
-  let selected_product_code = selector[selector.selectedIndex].value;
+function plotSelectedProduct(selected_product_code=default_product_code) {
+  // let selector = document.getElementById("select-list");
+  // let selected_product_code = selector[selector.selectedIndex].value;
+
   plotKilosBarPlot(selected_product_code, plotOptions);
   plotPreciosPlot(selected_product_code, plotOptions);
   plotLocalFraction(selected_product_code);
+
   // console.log(mejores_meses[selected_product_code]);
 }
 
@@ -257,7 +285,7 @@ function plotKilosBarPlot(code, options={"plot_mean_values": false, "plot_local"
   }
 
   let plot_data;
-  let product_name = codigos[code];
+  let product_name = products[code];
   let trace1 = {
     x: x_tick_array,
     y: local_array,
@@ -373,7 +401,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   }
 
   let plot_data;
-  let product_name = codigos[code];
+  let product_name = products[code];
   let trace_min_local = {
     x: x_tick_array,
     y: impute_nans(local_min_array),
@@ -505,4 +533,5 @@ function plotLocalFraction(code, year=null) {
 
 
 
-initializeForm(codigos);
+initializeForm(products);
+deployPictureGrid(products);

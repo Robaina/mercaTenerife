@@ -6,6 +6,8 @@
   --backgroundColor2: rgb(250, 250, 250);
   --fancyColor: #0b98d9;
   --titleColor: rgb(236, 236, 236);
+  --grid_item_margin: 1.5vw;;
+  --grid_item_border_width: 0.25vw;
 }
 
 html, body {
@@ -44,6 +46,44 @@ html, body {
   font-family: 'Anton', sans-serif;
   color: var(--titleColor);
   max-width: 90%;
+}
+
+#grid_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  grid-auto-flow: row dense;
+  width: auto;
+  justify-content: center;
+  margin: 3vh;
+}
+.grid_item {
+  width: auto;
+  height: auto;
+  padding: calc(0.2 * var(--grid_item_margin));
+  margin: var(--grid_item_margin);
+  border: var(--grid_item_border_width) solid rgb(75, 75, 75);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.grid_item:hover{
+  border: var(--grid_item_border_width) solid var(--fancyColor);
+}
+.grid_item:focus {
+  outline: none;
+}
+.grid_item:hover > .button {
+  border-color: var(--fancyColor);
+}
+.grid_item_title {
+  text-align: center;
+  font-size: 1.2em;
+  /* min-height: 5vh; */
+  margin-top: 3%;
+  color: var(--fontColor);
+}
+.thumbnail {
+  width: 100%;
+  margin-top: 0.4em;
 }
 
 .button-container {
