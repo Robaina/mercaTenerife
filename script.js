@@ -308,7 +308,7 @@ function plotKilosBarPlot(code, options={"plot_mean_values": false, "plot_local"
       // tickangle: 90,
       // tickson: "boundaries",
       // ticklen: 15,
-      // showdividers: true,
+     showdividers: true,
       // dividercolor: 'grey',
       // dividerwidth: 2
     },
@@ -453,7 +453,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
      },
      // tickson: "boundaries",
      // ticklen: 15,
-     // showdividers: true,
+   showdividers: true,
      // dividercolor: 'grey',
      // dividerwidth: 2,
      // tickangle: 90
