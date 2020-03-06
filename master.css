@@ -48,17 +48,23 @@ html, body {
   max-width: 90%;
 }
 
-#grid_container {
+.grid_container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
   grid-auto-flow: row dense;
   width: auto;
   justify-content: center;
   margin: 3vh;
 }
 .grid_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
   width: auto;
   height: auto;
+  min-height: 100px;
   padding: calc(0.2 * var(--grid_item_margin));
   margin: var(--grid_item_margin);
   border: var(--grid_item_border_width) solid rgb(75, 75, 75);
@@ -75,14 +81,16 @@ html, body {
   border-color: var(--fancyColor);
 }
 .grid_item_title {
-  text-align: center;
-  font-size: 1.2em;
-  /* min-height: 5vh; */
-  margin-top: 3%;
-  color: var(--fontColor);
+  font-size: 1em;
+  color: black;
+  text-shadow: 4px 4px 12px var(--fontColor);
+  font-family: 'Anton', sans-serif;
+  pointer-events: none;
 }
 .thumbnail {
   width: 100%;
+  /* height: 100px; */
+  object-fit: cover;
   margin-top: 0.4em;
 }
 

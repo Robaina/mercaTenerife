@@ -65,17 +65,21 @@ function initializeForm(products) {
   plotSelectedProduct();
 }
 
-function deployPictureGrid(products) {
-  let grid = document.getElementById("grid_container");
-  for (let code of Object.keys(products)) {
+function deployPictureGrid(products, type="frutas") {
+  let grid = document.getElementById("grid_container-" + type);
+	let product_codes = product_classification[type];
+  for (let code of product_codes) {
     let photo_name = Object.keys(
-      product_pics).includes(code)? product_pics[code]: "no_photo.jpg";
+      product_pics).includes(String(code))? product_pics[code]: "no_photo.jpg";
     let grid_item = document.createElement("div");
     grid_item.setAttribute("class", "grid_item");
+		grid_item.setAttribute("id", code);
     grid_item.setAttribute("tabindex", "0");
-    let innerHTML = `<div class="grid_item_title">${code}, ${products[code].capitalize()}</div>
-    <img class="thumbnail" id="${code}" src="https://semidanrobaina.com/mercaTenerife/Resized_Photos/${photo_name}" alt="Responsive image"\>`;
-    grid_item.innerHTML = innerHTML;
+		grid_item.style["background-image"] = `url(https://semidanrobaina.com/mercaTenerife/Resized_Photos/${photo_name})`;
+		let grid_item_title = document.createElement("div");
+		grid_item_title.setAttribute("class", "grid_item_title");
+		grid_item_title.innerHTML = `${code},${products[code].capitalize()}`;
+		grid_item.appendChild(grid_item_title);
     grid_item.onclick = function(elem) {
       plotSelectedProduct(elem.target.id);
     };
@@ -533,5 +537,6 @@ function plotLocalFraction(code, year=null) {
 
 
 
-initializeForm(products);
-deployPictureGrid(products);
+// initializeForm(products);
+deployPictureGrid(products, type="frutas");
+deployPictureGrid(products, type="verduras");

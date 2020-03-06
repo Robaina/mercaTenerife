@@ -14,11 +14,12 @@
     <!-- <link rel="icon" type="image/png" href="anchor.png"> -->
 
     <link rel="stylesheet" href="master.css">
-    <script src="codigos.json"></script>
+    <script src="products.json"></script>
     <script src="mejores_meses.json"></script>
     <script src="kilosTimeSeriesImputed.json"></script>
     <script src="preciosTimeSeriesImputed.json"></script>
     <script src="product_pics.json"></script>
+    <script src="product_classification.json"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   </head>
@@ -29,11 +30,10 @@
       <div id="title">Estadísticas de Mercatenerife</div>
     </div>
 
-    <form id="form">
-      <!-- <p id="form-description">Buque:</p> -->
+    <!-- <form id="form">
       <select name="producto" id="select-list" onchange="plotSelectedProduct()">
       </select>
-    </form>
+    </form> -->
 
     <div class="button-container">
       <button type="button" class="button" id="select-mean-data" onclick="selectMeanData()">Media</button>
@@ -46,7 +46,8 @@
     <div class="plot" id="preciosplot"></div>
     <div id="pieplot"></div>
 
-    <div id="grid_container"></div>
+    <div class="grid_container" id="grid_container-frutas"></div>
+    <div class="grid_container" id="grid_container-verduras"></div>
 
     <article id="about">
       <!-- <h1>¿Qué es esto?</h1> -->
