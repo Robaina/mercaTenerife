@@ -49,24 +49,25 @@ function getUniqueValues(array) {
   return array.filter(unique)
 }
 
-function initializeForm(products) {
-  let form = 	document.getElementById("select-list");
-  for (let product of Object.values(products).sort()) {
-    let code = getKeyByValue(products, product);
-    let option = document.createElement("option");
-    option.text = product;
-    option.value = code;
-    option.setAttribute("id", code);
-    if (parseInt(code) === 21206) {
-      option.selected = "selected";
-    }
-    form.add(option);
-  }
-  plotSelectedProduct();
-}
+// function initializeForm(products) {
+//   let form = 	document.getElementById("select-list");
+//   for (let product of Object.values(products).sort()) {
+//     let code = getKeyByValue(products, product);
+//     let option = document.createElement("option");
+//     option.text = product;
+//     option.value = code;
+//     option.setAttribute("id", code);
+//     if (parseInt(code) === 21206) {
+//       option.selected = "selected";
+//     }
+//     form.add(option);
+//   }
+//   plotSelectedProduct(default_product_code);
+// }
 
 function deployPictureGrid(products, type="frutas") {
-  let grid = document.getElementById("grid_container-" + type);
+	let grid = document.getElementById("products_grid");
+	grid.innerHTML = "";
 	let product_codes = product_classification[type];
   for (let code of product_codes) {
     let photo_name = Object.keys(
@@ -82,10 +83,18 @@ function deployPictureGrid(products, type="frutas") {
 		grid_item.appendChild(grid_item_title);
     grid_item.onclick = function(elem) {
       plotSelectedProduct(elem.target.id);
+			grid.innerHTML = "";
+			grid.scrollIntoView();
     };
     grid.appendChild(grid_item);
   }
+}
 
+function selectFruits() {
+	deployPictureGrid(products, type="frutas");
+}
+function selectVeggies() {
+	deployPictureGrid(products, type="verduras");
 }
 
 function getKeyByValue(object, value) {
@@ -506,7 +515,6 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   };
   let config = {responsive: true};
   Plotly.newPlot("preciosplot", plot_data, layout, config);
-  // console.log(plot_data[0].y, plot_data[1].y);
 }
 
 
@@ -530,13 +538,14 @@ function plotLocalFraction(code, year=null) {
     paper_bgcolor: backgroundColor,
     font: {
       color: fontColor
-    }
+    },
+		margin: { t: 0, b: 0 }
   };
   Plotly.newPlot('pieplot', data, layout);
 }
 
 
-
 // initializeForm(products);
-deployPictureGrid(products, type="frutas");
-deployPictureGrid(products, type="verduras");
+plotSelectedProduct(default_product_code);
+// deployPictureGrid(products, type="frutas");
+// deployPictureGrid(products, type="verduras");

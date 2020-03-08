@@ -35,6 +35,19 @@
       </select>
     </form> -->
 
+    <div class="product-selector">
+      <div class="product" id="fruits" onclick="selectFruits()">
+        <div class="centering_container">
+          <span>Frutas</span>
+        </div>
+      </div>
+      <div class="product" id="veggies" onclick="selectVeggies()">
+        <div class="centering_container">
+          <span>Verduras</span>
+        </div>
+      </div>
+    </div>
+
     <div class="button-container">
       <button type="button" class="button" id="select-mean-data" onclick="selectMeanData()">Media</button>
       <button type="button" class="button" id="select-full-data" onclick="selectFullData()">Completo</button>
@@ -42,12 +55,11 @@
       <button type="button" class="button" id="select-importacion-data" onclick="selectImportacionToPlot()">Importación</button>
     </div>
 
+    <div class="grid_container" id="products_grid"></div>
+
     <div class="plot" id="kilosplot"></div>
     <div class="plot" id="preciosplot"></div>
     <div id="pieplot"></div>
-
-    <div class="grid_container" id="grid_container-frutas"></div>
-    <div class="grid_container" id="grid_container-verduras"></div>
 
     <article id="about">
       <!-- <h1>¿Qué es esto?</h1> -->
