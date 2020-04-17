@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Anton|Coda" rel="stylesheet">
     <title>Datos Mercatenerife</title>
-    <!-- <link rel="icon" type="image/png" href="anchor.png"> -->
+    <link rel="icon" type="image/png" href="imgs/basket.png">
 
     <link rel="stylesheet" href="master.css">
     <script src="products.json"></script>
@@ -26,7 +26,7 @@
 
   <body>
 
-    <div id="title-container">
+    <div class="background_image" id="title-container">
       <div id="title">Estadísticas de Mercatenerife</div>
     </div>
 
@@ -36,15 +36,26 @@
     </form> -->
 
     <div class="product-selector">
-      <div class="product" id="fruits" onclick="selectFruits()">
+      <div class="background_image product" id="fruits" onclick="selectFruits()">
         <div class="centering_container">
           <span>Frutas</span>
         </div>
       </div>
-      <div class="product" id="veggies" onclick="selectVeggies()">
+      <div class="background_image product" id="veggies" onclick="selectVeggies()">
         <div class="centering_container">
           <span>Verduras</span>
         </div>
+      </div>
+    </div>
+
+    <div class="grid_container" id="products_grid"></div>
+
+    <div class="product_header_container">
+      <div id="product_name"></div>
+      <div id="pieplot_image_container">
+        <div class="background_image" id="product_pic"></div>
+        <div id="product_data"></div>
+        <div id="pieplot"></div>
       </div>
     </div>
 
@@ -55,11 +66,8 @@
       <button type="button" class="button" id="select-importacion-data" onclick="selectImportacionToPlot()">Importación</button>
     </div>
 
-    <div class="grid_container" id="products_grid"></div>
-
     <div class="plot" id="kilosplot"></div>
     <div class="plot" id="preciosplot"></div>
-    <div id="pieplot"></div>
 
     <article id="about">
       <!-- <h1>¿Qué es esto?</h1> -->

@@ -29,17 +29,30 @@ const impor_color = "rgb(221, 125, 6)";
 const moda_color = "rgb(167, 167, 167)";
 const default_product_code = 21206;
 
-let sum = function(array) {
+const sum = function(array) {
   return array.reduce((a, b) => a + b, 0);
 }
-let mean = function(array) {
+
+const mean = function(array) {
   return sum(array) / array.length
 }
-let std = function(array) {
+
+const std = function(array) {
   let mean_x = mean(array);
   let variance_x = mean(array.map(x => (x - mean_x)**2));
   let std_x = Math.sqrt(variance_x);
   return std_x
+}
+
+const impute_nans = function(array) {
+	let imputed_array = [...array];
+	let first_non_nan = array.findIndex(number => !isNaN(number));
+	for (let i=first_non_nan + 1; i<array.length; i++) {
+		if(isNaN(array[i])) {
+			imputed_array[i] = imputed_array[i - 1];
+		}
+	}
+	return imputed_array
 }
 
 function getUniqueValues(array) {
@@ -73,7 +86,7 @@ function deployPictureGrid(products, type="frutas") {
     let photo_name = Object.keys(
       product_pics).includes(String(code))? product_pics[code]: "no_photo.jpg";
     let grid_item = document.createElement("div");
-    grid_item.setAttribute("class", "grid_item");
+    grid_item.setAttribute("class", "grid_item background_image");
 		grid_item.setAttribute("id", code);
     grid_item.setAttribute("tabindex", "0");
 		grid_item.style["background-image"] = `url(https://semidanrobaina.com/mercaTenerife/Resized_Photos/${photo_name})`;
@@ -105,11 +118,50 @@ function plotSelectedProduct(selected_product_code=default_product_code) {
   // let selector = document.getElementById("select-list");
   // let selected_product_code = selector[selector.selectedIndex].value;
 
+	let product_name = products[selected_product_code];
+	let name_div = document.getElementById("product_name");
+	name_div.innerHTML = `<p>${product_name}</p>`;
+	let product_pic = document.getElementById("product_pic");
+	let url = `https://semidanrobaina.com/mercaTenerife/Resized_Photos/${product_pics[selected_product_code]}`;
+	product_pic.style["background-image"] = `url(${url})`;
+
   plotKilosBarPlot(selected_product_code, plotOptions);
   plotPreciosPlot(selected_product_code, plotOptions);
   plotLocalFraction(selected_product_code);
 
+	// let kilos_extreme_values = getKilosExtremeValues(selected_product_code);
+	// let precios_extreme_values = getPreciosExtremeValues(selected_product_code);
+	// console.log(kilos_extreme_values);
+	// console.log(precios_extreme_values);
+	fillInProductData(selected_product_code);
+
   // console.log(mejores_meses[selected_product_code]);
+}
+
+function fillInProductData(code) {
+	let k_values = getKilosExtremeValues(code);
+	let p_values = getPreciosExtremeValues(code);
+	let div = document.getElementById("product_data");
+	let precio_local = `<p>Precio local: ${p_values.local_min} - ${p_values.local_max} €</p>`;
+	let precio_impor = `<p>Precio importación: ${p_values.impor_min} - ${p_values.impor_max} €</p>`;
+	let kilos_local = `<p>Producción local: ${k_values.local_min} - ${k_values.local_max} Kg</p>`;
+	let kilos_impor = `<p>Producción importación: ${k_values.impor_min} - ${k_values.impor_max} Kg</p`;
+
+
+	let innerHTML = '';
+	if (p_values.local_min !== Infinity) {
+		innerHTML += precio_local;
+	}
+	if (p_values.impor_min !== Infinity) {
+		innerHTML += precio_impor;
+	}
+	if (k_values.local_max !== 0) {
+		innerHTML += kilos_local;
+	}
+	if (k_values.impor_max !== 0) {
+		innerHTML += kilos_impor;
+	}
+	div.innerHTML = innerHTML;
 }
 
 function selectMeanData() {
@@ -215,15 +267,37 @@ function extractPreciosMeanPlotData(code) {
 
 function extractPreciosPlotData(code) {
   let fechas = Object.keys(precios[code].min.local);
-  let min_local = Object.values(precios[code].min.local);
-  let min_impor = Object.values(precios[code].min.importacion);
-  let max_local = Object.values(precios[code].max.local);
-  let max_impor = Object.values(precios[code].max.importacion);
-  let moda_local = Object.values(precios[code].moda.local);
-  let moda_impor = Object.values(precios[code].moda.importacion);
+  let min_local = impute_nans(Object.values(precios[code].min.local));
+  let min_impor = impute_nans(Object.values(precios[code].min.importacion));
+  let max_local = impute_nans(Object.values(precios[code].max.local));
+  let max_impor = impute_nans(Object.values(precios[code].max.importacion));
+  let moda_local = impute_nans(Object.values(precios[code].moda.local));
+  let moda_impor = impute_nans(Object.values(precios[code].moda.importacion));
   return {"fechas": fechas, "min_local": min_local, "max_local": max_local,
           "min_impor": min_impor, "max_impor": max_impor,
           "moda_local": moda_local, "moda_impor": moda_impor}
+}
+
+function getKilosExtremeValues(code) {
+	let kilos_data = extractKilosPlotData(code);
+	return {
+		"local_min": Math.min(...kilos_data.local),
+		"local_max": Math.max(...kilos_data.local),
+		"local_mean": mean(kilos_data.local),
+		"impor_min": Math.min(...kilos_data.importacion),
+		"impor_max": Math.max(...kilos_data.importacion),
+		"impor_mean": mean(kilos_data.importacion)
+	}
+}
+
+function getPreciosExtremeValues(code) {
+	let precios_data = extractPreciosPlotData(code);
+	return {
+		"local_min": Math.min(...precios_data.min_local.filter(v => !isNaN(v))),
+		"local_max": Math.max(...precios_data.max_local.filter(v => !isNaN(v))),
+		"impor_min": Math.min(...precios_data.min_impor.filter(v => !isNaN(v))),
+		"impor_max": Math.max(...precios_data.max_impor.filter(v => !isNaN(v)))
+	}
 }
 
 function computeLocallyProducedFraction(code, year=null) {
@@ -298,7 +372,7 @@ function plotKilosBarPlot(code, options={"plot_mean_values": false, "plot_local"
   }
 
   let plot_data;
-  let product_name = products[code];
+  // let product_name = products[code];
   let trace1 = {
     x: x_tick_array,
     y: local_array,
@@ -338,7 +412,8 @@ function plotKilosBarPlot(code, options={"plot_mean_values": false, "plot_local"
 
   let layout = {
     barmode: "stack",
-    title: `Kilos de ${product_name} producidos`,
+    // title: `Kilos de ${product_name} producidos`,
+		title: `Kilos producidos`,
     font: {
       color: fontColor
     },
@@ -380,17 +455,6 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   let impor_max_array = [];
   let impor_moda_array = [];
 
-  const impute_nans = function(array) {
-    let imputed_array = [...array];
-    let first_non_nan = array.findIndex(number => !isNaN(number));
-    for (let i=first_non_nan + 1; i<array.length; i++) {
-      if(isNaN(array[i])) {
-        imputed_array[i] = imputed_array[i - 1];
-      }
-    }
-    return imputed_array
-  }
-
   if (options.plot_mean_values) {
     let data = extractPreciosMeanPlotData(code);
     x_tick_array = Object.keys(data.local.min);
@@ -414,10 +478,10 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   }
 
   let plot_data;
-  let product_name = products[code];
+  // let product_name = products[code];
   let trace_min_local = {
     x: x_tick_array,
-    y: impute_nans(local_min_array),
+    y: local_min_array,
     name: "Local (min)",
     showlegend: false,
     line: {
@@ -426,7 +490,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   };
   let trace_max_local = {
     x: x_tick_array,
-    y: impute_nans(local_max_array),
+    y: local_max_array,
     name: "Local (max)",
     showlegend: false,
     fill: 'tonexty',
@@ -436,7 +500,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   };
   let trace_moda_local = {
     x: x_tick_array,
-    y: impute_nans(local_moda_array),
+    y: local_moda_array,
     name: "Local",
     line: {
       color: local_color,
@@ -445,7 +509,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   };
   let trace_min_impor = {
     x: x_tick_array,
-    y: impute_nans(impor_min_array),
+    y: impor_min_array,
     name: "Importación (min)",
     showlegend: false,
     fillcolor: "transparent",
@@ -455,7 +519,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   };
   let trace_max_impor = {
     x: x_tick_array,
-    y: impute_nans(impor_max_array),
+    y: impor_max_array,
     name: "Importación (max)",
     showlegend: false,
     fill: 'tonexty',
@@ -465,7 +529,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   };
   let trace_moda_impor = {
     x: x_tick_array,
-    y: impute_nans(impor_moda_array),
+    y: impor_moda_array,
     name: "Importación",
     line: {
       color: impor_color,
@@ -483,7 +547,8 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
   }
 
   let layout = {
-   title: `Evolución de precios de ${product_name}`,
+   // title: `Evolución de precios de ${product_name}`,
+	 title: `Evolución de precios`,
    mode: "lines",
    font: {
      color: fontColor
@@ -519,6 +584,7 @@ function plotPreciosPlot(code, options={"plot_mean_values": false, "plot_local":
 
 
 function plotLocalFraction(code, year=null) {
+	let container_width = document.getElementById("pieplot").clientWidth;
   let local_fraction = computeLocallyProducedFraction(code, year);
   let data = [{
     values: [local_fraction, 1 - local_fraction],
@@ -532,14 +598,19 @@ function plotLocalFraction(code, year=null) {
   }];
 
   let layout = {
-    height: 400,
-    width: 500,
+    height: container_width,
+    width: container_width,
     plot_bgcolor: backgroundColor,
     paper_bgcolor: backgroundColor,
     font: {
       color: fontColor
     },
-		margin: { t: 0, b: 0 }
+		margin: { t: 0, b: 0, l: 0, r: 0, pad: 0 },
+		legend: {
+		 x: 1,
+		 xanchor: 'right',
+		 y: 1
+		}
   };
   Plotly.newPlot('pieplot', data, layout);
 }

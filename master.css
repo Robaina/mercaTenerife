@@ -12,7 +12,6 @@
 
 html, body {
   background-color: var(--backgroundColor);
-  /* background-image: url('clean-gray-paper.png'); */
   margin: 0;
   padding: 0;
   width: 100%;
@@ -20,20 +19,31 @@ html, body {
   overflow-x: hidden;
 }
 
+.background_image {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("imgs/mercatenerife.jpg");
+}
+
+.centering_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
 #title-container {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 100vw;
   height: 400px;
   margin-left: 0vw;
   margin-bottom: 5vh;
   text-align: center;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  /* background-image: url('Bn_Cruceros.jpg'); */
 }
 
 #title {
@@ -42,6 +52,43 @@ html, body {
   font-family: 'Anton', sans-serif;
   color: var(--titleColor);
   max-width: 90%;
+}
+
+#product_header_container {
+  width: 100vw;
+  height: 30vh;
+  display: block;
+  /* color: var(--fontColor);
+  font-size: 1.2em; */
+}
+#product_name {
+  display: block;
+  color: var(--fontColor);
+  font-size: 1.5em;
+  text-align: center;
+}
+#pieplot_image_container {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+#pieplot {
+  display: inline-block;
+  width: 200px;
+  height: auto;
+}
+#product_pic {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  /* display: inline-block; */
+}
+#product_data {
+  width: 200px;
+  height: 200px;
+  color: var(--fontColor);
+  text-align: left;
 }
 
 .product-selector {
@@ -59,11 +106,8 @@ html, body {
   margin-left: 4vw;
   margin-right: 4vw;
   border-radius: 15px;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
   color: var(--fontColor);
-  font-size: 5vw;
+  font-size: 4vw;
   cursor: pointer;
   text-shadow: 4px 4px 12px var(--fontColor);
   font-family: 'Anton', sans-serif;
@@ -97,7 +141,6 @@ html, body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-size: cover;
   width: auto;
   height: auto;
   min-height: 100px;
@@ -136,9 +179,9 @@ html, body {
 
 .button {
   padding: 1vmax;
-  font-size: 1.5em;
+  font-size: 1.2em;
   width: auto;
-  background-color: var(--fancyColor);
+  background-color: rgb(102, 102, 102);
   border: none;
   color: white;
   text-align: center;
@@ -152,6 +195,7 @@ html, body {
   z-index: 2;
 }
 .button:active {
+  background-color: var(--fancyColor);
   box-shadow: 0 0.3vmax rgb(102, 102, 102);
   transform: translateY(4px);
 }
@@ -161,15 +205,6 @@ html, body {
   width: 80vw;
   margin-left: 10vw;
   margin-top: 0vh;
-}
-
-.centering_container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  height: 100%;
 }
 
 #about {
