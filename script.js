@@ -28,6 +28,7 @@ const local_color = "rgb(9, 133, 208)";
 const impor_color = "rgb(221, 125, 6)";
 const moda_color = "rgb(167, 167, 167)";
 const default_product_code = 21206;
+let selected_product;
 
 const sum = function(array) {
   return array.reduce((a, b) => a + b, 0);
@@ -117,7 +118,7 @@ function getKeyByValue(object, value) {
 function plotSelectedProduct(selected_product_code=default_product_code) {
   // let selector = document.getElementById("select-list");
   // let selected_product_code = selector[selector.selectedIndex].value;
-
+  selected_product = selected_product_code;
 	let product_name = products[selected_product_code];
 	let name_div = document.getElementById("product_name");
 	name_div.innerHTML = `<p>${product_name}</p>`;
@@ -128,50 +129,47 @@ function plotSelectedProduct(selected_product_code=default_product_code) {
   plotKilosBarPlot(selected_product_code, plotOptions);
   plotPreciosPlot(selected_product_code, plotOptions);
   plotLocalFraction(selected_product_code);
-
-	// let kilos_extreme_values = getKilosExtremeValues(selected_product_code);
-	// let precios_extreme_values = getPreciosExtremeValues(selected_product_code);
-	// console.log(kilos_extreme_values);
-	// console.log(precios_extreme_values);
 	fillInProductData(selected_product_code);
-
-  // console.log(mejores_meses[selected_product_code]);
 }
 
 function fillInProductData(code) {
 	let k_values = getKilosExtremeValues(code);
 	let p_values = getPreciosExtremeValues(code);
+	let product_best_months = mejores_meses[code];
 	let div = document.getElementById("product_data");
-	let precio_local = `<p>Precio local: ${p_values.local_min} - ${p_values.local_max} €</p>`;
-	let precio_impor = `<p>Precio importación: ${p_values.impor_min} - ${p_values.impor_max} €</p>`;
-	let kilos_local = `<p>Producción local: ${k_values.local_min} - ${k_values.local_max} Kg</p>`;
-	let kilos_impor = `<p>Producción importación: ${k_values.impor_min} - ${k_values.impor_max} Kg</p`;
-
 
 	let innerHTML = '';
 	if (p_values.local_min !== Infinity) {
+		let precio_local = `<p>Precio local: ${p_values.local_min} - ${p_values.local_max} € / Kg</p>`;
 		innerHTML += precio_local;
 	}
 	if (p_values.impor_min !== Infinity) {
+		let precio_impor = `<p>Precio importación: ${p_values.impor_min} - ${p_values.impor_max} € / Kg</p>`;
 		innerHTML += precio_impor;
 	}
 	if (k_values.local_max !== 0) {
+		let kilos_local = `<p>Cantidad mensual local: ${k_values.local_min} - ${k_values.local_max} Kg</p>`;
 		innerHTML += kilos_local;
 	}
 	if (k_values.impor_max !== 0) {
+		let kilos_impor = `<p>Cantidad mensual importación: ${k_values.impor_min} - ${k_values.impor_max} Kg</p>`;
 		innerHTML += kilos_impor;
+	}
+	if (product_best_months.length > 0) {
+		let temporada = `<p>Mayor producción: ${product_best_months.join(" - ")}</p>`;
+		innerHTML += temporada;
 	}
 	div.innerHTML = innerHTML;
 }
 
 function selectMeanData() {
   plotOptions.plot_mean_values = true;
-  plotSelectedProduct();
+  plotSelectedProduct(selected_product);
 }
 
 function selectFullData() {
   plotOptions.plot_mean_values = false;
-  plotSelectedProduct();
+  plotSelectedProduct(selected_product);
 }
 
 function selectLocalToPlot() {
@@ -179,7 +177,7 @@ function selectLocalToPlot() {
   if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
     plotOptions.plot_local = true;
   }
-  plotSelectedProduct();
+  plotSelectedProduct(selected_product);
 }
 
 function selectImportacionToPlot() {
@@ -187,7 +185,7 @@ function selectImportacionToPlot() {
   if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
     plotOptions.plot_importacion = true;
   }
-  plotSelectedProduct();
+  plotSelectedProduct(selected_product);
 }
 
 function extractKilosPlotData(code) {
@@ -620,3 +618,30 @@ function plotLocalFraction(code, year=null) {
 plotSelectedProduct(default_product_code);
 // deployPictureGrid(products, type="frutas");
 // deployPictureGrid(products, type="verduras");
+
+
+let html_url = "https://mercatenerife.com/precios_frame.php?l=1";
+
+
+// $.get(html_url, function(data) {
+// 	console.log(data);
+// })
+
+fetch(html_url, {mode: "no-cors"})
+    .then(function (response) {
+        switch (response.status) {
+            // status "OK"
+            case 200:
+                return response.text();
+            // status "Not Found"
+            case 404:
+                throw response;
+        }
+    })
+    .then(function (template) {
+        console.log(template);
+    })
+    .catch(function (response) {
+        // "Not Found"
+        console.log(response.statusText);
+    });
