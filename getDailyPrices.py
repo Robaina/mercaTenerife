@@ -25,15 +25,15 @@ for product in products:
     min_price = product.select('td')[3].text
     max_price = product.select('td')[4].text
     mode_price = product.select('td')[5].text
-    
+
     if code not in data.keys():
         data[code] = {}
-    data['name'] = name
+        data[code]['name'] = name
     data[code][origen] = {'min': min_price, 'max': max_price, 'moda': mode_price}
-    
+
 with open(workDir + 'daily_prices.json', 'w') as outfile:
-        outfile.write("daily_prices = ")
-        json.dump(data, outfile)
+    outfile.write("daily_prices = ")
+    json.dump(data, outfile)
 
 # Push commit
 call(['git', 'add', 'daily_prices.json'], cwd=workDir)

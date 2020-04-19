@@ -1,13 +1,14 @@
 daily_prices = {
   "20100": {
+    "name": "Acelgas",
     "local": {
       "min": "0,54",
       "max": "0,75",
       "moda": "0,60"
     }
   },
-  "name": "Zanahorias de segunda",
   "10103": {
+    "name": "Aguacate hass",
     "local": {
       "min": "2,80",
       "max": "3,20",
@@ -15,6 +16,7 @@ daily_prices = {
     }
   },
   "10102": {
+    "name": "Aguacates fuertes",
     "local": {
       "min": "1,80",
       "max": "2,20",
@@ -22,6 +24,7 @@ daily_prices = {
     }
   },
   "20206": {
+    "name": "Ajos",
     "impor": {
       "min": "3,00",
       "max": "3,60",
@@ -29,6 +32,7 @@ daily_prices = {
     }
   },
   "20200": {
+    "name": "Ajos pais",
     "local": {
       "min": "5,00",
       "max": "5,50",
@@ -36,6 +40,7 @@ daily_prices = {
     }
   },
   "20221": {
+    "name": "Albahaca",
     "local": {
       "min": "6,75",
       "max": "10,50",
@@ -43,6 +48,7 @@ daily_prices = {
     }
   },
   "20300": {
+    "name": "Alcachofas",
     "local": {
       "min": "2,50",
       "max": "3,00",
@@ -50,6 +56,7 @@ daily_prices = {
     }
   },
   "20500": {
+    "name": "Apio",
     "local": {
       "min": "1,50",
       "max": "1,80",
@@ -62,6 +69,7 @@ daily_prices = {
     }
   },
   "24800": {
+    "name": "Arvejas                       ",
     "local": {
       "min": "3,80",
       "max": "4,00",
@@ -69,6 +77,7 @@ daily_prices = {
     }
   },
   "23803": {
+    "name": "Batatas blancas",
     "local": {
       "min": "1,40",
       "max": "1,50",
@@ -76,6 +85,7 @@ daily_prices = {
     }
   },
   "23801": {
+    "name": "Batatas de lanzarote",
     "impor": {
       "min": "1,30",
       "max": "1,30",
@@ -83,6 +93,7 @@ daily_prices = {
     }
   },
   "23800": {
+    "name": "Batatas otras",
     "local": {
       "min": "1,50",
       "max": "1,80",
@@ -95,6 +106,7 @@ daily_prices = {
     }
   },
   "23802": {
+    "name": "Batatas yema huevo",
     "local": {
       "min": "1,90",
       "max": "2,10",
@@ -102,6 +114,7 @@ daily_prices = {
     }
   },
   "20601": {
+    "name": "Berenjenas moradas",
     "local": {
       "min": "0,70",
       "max": "0,80",
@@ -109,6 +122,7 @@ daily_prices = {
     }
   },
   "24600": {
+    "name": "Berros",
     "local": {
       "min": "1,70",
       "max": "1,80",
@@ -116,6 +130,7 @@ daily_prices = {
     }
   },
   "24900": {
+    "name": "Beterrada",
     "local": {
       "min": "1,00",
       "max": "1,20",
@@ -123,6 +138,7 @@ daily_prices = {
     }
   },
   "26100": {
+    "name": "Brecol                        ",
     "local": {
       "min": "1,50",
       "max": "1,70",
@@ -130,6 +146,7 @@ daily_prices = {
     }
   },
   "20800": {
+    "name": "Bubangos",
     "local": {
       "min": "2,00",
       "max": "2,20",
@@ -137,6 +154,7 @@ daily_prices = {
     }
   },
   "20801": {
+    "name": "Calabacines",
     "local": {
       "min": "0,25",
       "max": "0,40",
@@ -144,6 +162,7 @@ daily_prices = {
     }
   },
   "20803": {
+    "name": "Calabacines redondos",
     "local": {
       "min": "0,50",
       "max": "0,60",
@@ -151,6 +170,7 @@ daily_prices = {
     }
   },
   "20805": {
+    "name": "Calabacines zucchini",
     "local": {
       "min": "0,50",
       "max": "0,60",
@@ -158,6 +178,7 @@ daily_prices = {
     }
   },
   "20900": {
+    "name": "Calabazas",
     "local": {
       "min": "1,00",
       "max": "1,20",
@@ -170,6 +191,7 @@ daily_prices = {
     }
   },
   "16001": {
+    "name": "Carambola",
     "local": {
       "min": "2,80",
       "max": "3,00",
@@ -177,6 +199,7 @@ daily_prices = {
     }
   },
   "21206": {
+    "name": "Cebollas blancas",
     "local": {
       "min": "1,00",
       "max": "1,10",
@@ -189,6 +212,7 @@ daily_prices = {
     }
   },
   "21203": {
+    "name": "Cebollas cebolletas",
     "local": {
       "min": "1,20",
       "max": "1,40",
@@ -196,6 +220,7 @@ daily_prices = {
     }
   },
   "21211": {
+    "name": "Cebollas moradas",
     "local": {
       "min": "1,60",
       "max": "1,70",
@@ -208,6 +233,7 @@ daily_prices = {
     }
   },
   "21500": {
+    "name": "Champi\u00f1on",
     "impor": {
       "min": "1,80",
       "max": "1,80",
@@ -215,6 +241,7 @@ daily_prices = {
     }
   },
   "25100": {
+    "name": "Chayote                       ",
     "local": {
       "min": "2,40",
       "max": "2,80",
@@ -222,6 +249,7 @@ daily_prices = {
     }
   },
   "10900": {
+    "name": "Chirimoyas",
     "impor": {
       "min": "2,40",
       "max": "2,40",
@@ -229,6 +257,7 @@ daily_prices = {
     }
   },
   "25000": {
+    "name": "Cilantro",
     "local": {
       "min": "2,52",
       "max": "3,50",
@@ -236,6 +265,7 @@ daily_prices = {
     }
   },
   "22408": {
+    "name": "Cogollos de tudela",
     "local": {
       "min": "6,00",
       "max": "6,00",
@@ -243,6 +273,7 @@ daily_prices = {
     }
   },
   "21305": {
+    "name": "Coles lombardas               ",
     "local": {
       "min": "0,50",
       "max": "0,60",
@@ -250,6 +281,7 @@ daily_prices = {
     }
   },
   "21301": {
+    "name": "Coles repollo",
     "local": {
       "min": "0,30",
       "max": "0,40",
@@ -257,6 +289,7 @@ daily_prices = {
     }
   },
   "21400": {
+    "name": "Coliflor",
     "local": {
       "min": "0,60",
       "max": "0,70",
@@ -264,6 +297,7 @@ daily_prices = {
     }
   },
   "22601": {
+    "name": "Colinabos",
     "local": {
       "min": "1,50",
       "max": "1,70",
@@ -271,6 +305,7 @@ daily_prices = {
     }
   },
   "14402": {
+    "name": "Duraznos grandes",
     "local": {
       "min": "3,50",
       "max": "3,50",
@@ -278,6 +313,7 @@ daily_prices = {
     }
   },
   "14403": {
+    "name": "Duraznos peque\u00f1os",
     "local": {
       "min": "2,50",
       "max": "2,50",
@@ -285,6 +321,7 @@ daily_prices = {
     }
   },
   "21800": {
+    "name": "Escarolas                     ",
     "local": {
       "min": "0,60",
       "max": "0,60",
@@ -292,6 +329,7 @@ daily_prices = {
     }
   },
   "22000": {
+    "name": "Espinacas                     ",
     "local": {
       "min": "1,50",
       "max": "1,80",
@@ -299,6 +337,7 @@ daily_prices = {
     }
   },
   "14600": {
+    "name": "Frambuesas",
     "impor": {
       "min": "12,00",
       "max": "12,00",
@@ -306,6 +345,7 @@ daily_prices = {
     }
   },
   "11200": {
+    "name": "Fresones",
     "local": {
       "min": "3,60",
       "max": "3,60",
@@ -318,6 +358,7 @@ daily_prices = {
     }
   },
   "11300": {
+    "name": "Granadas",
     "impor": {
       "min": "1,80",
       "max": "1,80",
@@ -325,6 +366,7 @@ daily_prices = {
     }
   },
   "14100": {
+    "name": "Guayabos",
     "local": {
       "min": "3,00",
       "max": "3,50",
@@ -332,6 +374,7 @@ daily_prices = {
     }
   },
   "22200": {
+    "name": "Habas verdes                  ",
     "local": {
       "min": "2,00",
       "max": "2,50",
@@ -339,6 +382,7 @@ daily_prices = {
     }
   },
   "22312": {
+    "name": "Habichuelas coco planas",
     "local": {
       "min": "1,20",
       "max": "1,40",
@@ -346,6 +390,7 @@ daily_prices = {
     }
   },
   "22310": {
+    "name": "Habichuelas redondas boby",
     "local": {
       "min": "1,00",
       "max": "1,50",
@@ -353,6 +398,7 @@ daily_prices = {
     }
   },
   "26400": {
+    "name": "Hierba huerto",
     "local": {
       "min": "3,75",
       "max": "4,50",
@@ -360,6 +406,7 @@ daily_prices = {
     }
   },
   "14301": {
+    "name": "Kiwano",
     "local": {
       "min": "1,60",
       "max": "1,70",
@@ -367,6 +414,7 @@ daily_prices = {
     }
   },
   "14300": {
+    "name": "Kiwi",
     "impor": {
       "min": "1,05",
       "max": "3,80",
@@ -374,6 +422,7 @@ daily_prices = {
     }
   },
   "24400": {
+    "name": "Laurel                        ",
     "local": {
       "min": "7,00",
       "max": "7,00",
@@ -381,6 +430,7 @@ daily_prices = {
     }
   },
   "22409": {
+    "name": "Lechuga hoja de roble",
     "local": {
       "min": "1,80",
       "max": "1,95",
@@ -388,6 +438,7 @@ daily_prices = {
     }
   },
   "22406": {
+    "name": "Lechuga iceberg",
     "local": {
       "min": "1,00",
       "max": "1,20",
@@ -395,6 +446,7 @@ daily_prices = {
     }
   },
   "22410": {
+    "name": "Lechuga lollo rosso",
     "local": {
       "min": "1,65",
       "max": "1,95",
@@ -402,6 +454,7 @@ daily_prices = {
     }
   },
   "22402": {
+    "name": "Lechugas batavia              ",
     "local": {
       "min": "0,90",
       "max": "1,00",
@@ -409,6 +462,7 @@ daily_prices = {
     }
   },
   "22403": {
+    "name": "Lechugas romanas (alargada)",
     "local": {
       "min": "1,80",
       "max": "2,10",
@@ -416,6 +470,7 @@ daily_prices = {
     }
   },
   "12801": {
+    "name": "Lima",
     "local": {
       "min": "2,00",
       "max": "2,00",
@@ -423,6 +478,7 @@ daily_prices = {
     }
   },
   "11504": {
+    "name": "Limon primofiori",
     "impor": {
       "min": "0,95",
       "max": "1,10",
@@ -430,6 +486,7 @@ daily_prices = {
     }
   },
   "11501": {
+    "name": "Limones otros",
     "local": {
       "min": "1,00",
       "max": "1,10",
@@ -437,6 +494,7 @@ daily_prices = {
     }
   },
   "25201": {
+    "name": "Maiz dulce",
     "local": {
       "min": "1,00",
       "max": "1,20",
@@ -449,6 +507,7 @@ daily_prices = {
     }
   },
   "11602": {
+    "name": "Mandarinas clementinas",
     "impor": {
       "min": "1,20",
       "max": "1,70",
@@ -456,6 +515,7 @@ daily_prices = {
     }
   },
   "11603": {
+    "name": "Mandarinas clemenulle",
     "impor": {
       "min": "1,10",
       "max": "1,60",
@@ -463,6 +523,7 @@ daily_prices = {
     }
   },
   "11701": {
+    "name": "Manzana golden",
     "impor": {
       "min": "0,80",
       "max": "1,40",
@@ -470,6 +531,7 @@ daily_prices = {
     }
   },
   "11708": {
+    "name": "Manzana granny smith",
     "impor": {
       "min": "1,40",
       "max": "1,40",
@@ -477,6 +539,7 @@ daily_prices = {
     }
   },
   "11710": {
+    "name": "Manzana red chief",
     "impor": {
       "min": "1,60",
       "max": "1,60",
@@ -484,6 +547,7 @@ daily_prices = {
     }
   },
   "11711": {
+    "name": "Manzana royal gala",
     "impor": {
       "min": "1,20",
       "max": "1,40",
@@ -491,6 +555,7 @@ daily_prices = {
     }
   },
   "11713": {
+    "name": "Manzanas fuji",
     "impor": {
       "min": "1,35",
       "max": "1,60",
@@ -498,6 +563,7 @@ daily_prices = {
     }
   },
   "11901": {
+    "name": "Melones piel de sapo",
     "impor": {
       "min": "1,20",
       "max": "1,20",
@@ -505,6 +571,7 @@ daily_prices = {
     }
   },
   "15200": {
+    "name": "Moras",
     "impor": {
       "min": "15,00",
       "max": "15,00",
@@ -512,6 +579,7 @@ daily_prices = {
     }
   },
   "22600": {
+    "name": "Nabos",
     "local": {
       "min": "1,80",
       "max": "2,00",
@@ -519,6 +587,7 @@ daily_prices = {
     }
   },
   "25300": {
+    "name": "\u00f1ames",
     "local": {
       "min": "5,00",
       "max": "5,50",
@@ -526,6 +595,7 @@ daily_prices = {
     }
   },
   "12110": {
+    "name": "Naranja salustiana            ",
     "impor": {
       "min": "0,75",
       "max": "0,95",
@@ -533,6 +603,7 @@ daily_prices = {
     }
   },
   "12107": {
+    "name": "Naranja zumo(peque\u00f1a)",
     "local": {
       "min": "0,70",
       "max": "0,90",
@@ -540,6 +611,7 @@ daily_prices = {
     }
   },
   "12101": {
+    "name": "Naranjas navel                ",
     "impor": {
       "min": "0,85",
       "max": "0,90",
@@ -547,6 +619,7 @@ daily_prices = {
     }
   },
   "25400": {
+    "name": "Pantanas                      ",
     "local": {
       "min": "1,20",
       "max": "1,20",
@@ -554,6 +627,7 @@ daily_prices = {
     }
   },
   "30116": {
+    "name": "Papa cara",
     "local": {
       "min": "1,20",
       "max": "1,30",
@@ -566,6 +640,7 @@ daily_prices = {
     }
   },
   "30132": {
+    "name": "Papa colorada baga",
     "local": {
       "min": "3,00",
       "max": "4,00",
@@ -573,6 +648,7 @@ daily_prices = {
     }
   },
   "30115": {
+    "name": "Papa king edward",
     "local": {
       "min": "1,40",
       "max": "1,50",
@@ -585,6 +661,7 @@ daily_prices = {
     }
   },
   "30122": {
+    "name": "Papa negra                    ",
     "local": {
       "min": "5,50",
       "max": "6,50",
@@ -592,6 +669,7 @@ daily_prices = {
     }
   },
   "30128": {
+    "name": "Papa negra oro",
     "local": {
       "min": "5,50",
       "max": "6,50",
@@ -599,6 +677,7 @@ daily_prices = {
     }
   },
   "30130": {
+    "name": "Papa red-cara/druid",
     "local": {
       "min": "1,10",
       "max": "1,20",
@@ -606,6 +685,7 @@ daily_prices = {
     }
   },
   "30129": {
+    "name": "Papa slaney",
     "local": {
       "min": "1,40",
       "max": "1,50",
@@ -613,6 +693,7 @@ daily_prices = {
     }
   },
   "30114": {
+    "name": "Papa up to  date",
     "local": {
       "min": "1,70",
       "max": "1,80",
@@ -620,6 +701,7 @@ daily_prices = {
     }
   },
   "30135": {
+    "name": "Papas galactica",
     "local": {
       "min": "1,35",
       "max": "1,40",
@@ -627,6 +709,7 @@ daily_prices = {
     }
   },
   "30100": {
+    "name": "Papas otras blancas",
     "local": {
       "min": "0,80",
       "max": "1,00",
@@ -634,6 +717,7 @@ daily_prices = {
     }
   },
   "30136": {
+    "name": "Papas rooster",
     "local": {
       "min": "1,40",
       "max": "1,60",
@@ -641,6 +725,7 @@ daily_prices = {
     }
   },
   "30120": {
+    "name": "Papas rosada",
     "local": {
       "min": "1,80",
       "max": "2,00",
@@ -648,6 +733,7 @@ daily_prices = {
     }
   },
   "30123": {
+    "name": "Papas spunta                  ",
     "local": {
       "min": "1,40",
       "max": "1,40",
@@ -660,6 +746,7 @@ daily_prices = {
     }
   },
   "13903": {
+    "name": "Papaya cubana",
     "local": {
       "min": "0,50",
       "max": "0,70",
@@ -667,6 +754,7 @@ daily_prices = {
     }
   },
   "13901": {
+    "name": "Papaya hawaiana",
     "local": {
       "min": "0,50",
       "max": "0,90",
@@ -674,6 +762,7 @@ daily_prices = {
     }
   },
   "13904": {
+    "name": "Papaya h\u00edbrida",
     "local": {
       "min": "0,60",
       "max": "0,70",
@@ -681,6 +770,7 @@ daily_prices = {
     }
   },
   "14900": {
+    "name": "Parchita",
     "local": {
       "min": "2,50",
       "max": "3,00",
@@ -688,6 +778,7 @@ daily_prices = {
     }
   },
   "22800": {
+    "name": "Pepino",
     "local": {
       "min": "0,50",
       "max": "0,60",
@@ -695,6 +786,7 @@ daily_prices = {
     }
   },
   "12616": {
+    "name": "Peras conference",
     "impor": {
       "min": "1,30",
       "max": "1,30",
@@ -702,6 +794,7 @@ daily_prices = {
     }
   },
   "12615": {
+    "name": "Peras devoe",
     "impor": {
       "min": "1,30",
       "max": "1,30",
@@ -709,6 +802,7 @@ daily_prices = {
     }
   },
   "12602": {
+    "name": "Peras ercoline",
     "impor": {
       "min": "1,60",
       "max": "1,80",
@@ -716,6 +810,7 @@ daily_prices = {
     }
   },
   "22900": {
+    "name": "Perejil                       ",
     "local": {
       "min": "2,34",
       "max": "3,25",
@@ -723,6 +818,7 @@ daily_prices = {
     }
   },
   "24505": {
+    "name": "Pimienta palmera",
     "local": {
       "min": "5,00",
       "max": "6,00",
@@ -730,6 +826,7 @@ daily_prices = {
     }
   },
   "24500": {
+    "name": "Pimientas otras",
     "local": {
       "min": "3,50",
       "max": "4,00",
@@ -737,6 +834,7 @@ daily_prices = {
     }
   },
   "24503": {
+    "name": "Pimientas palmeras secas",
     "local": {
       "min": "20,00",
       "max": "25,00",
@@ -744,6 +842,7 @@ daily_prices = {
     }
   },
   "23003": {
+    "name": "Pimiento rojo",
     "local": {
       "min": "2,10",
       "max": "2,20",
@@ -756,6 +855,7 @@ daily_prices = {
     }
   },
   "23002": {
+    "name": "Pimiento verde",
     "local": {
       "min": "1,40",
       "max": "1,50",
@@ -768,6 +868,7 @@ daily_prices = {
     }
   },
   "23008": {
+    "name": "Pimientos amarillo",
     "local": {
       "min": "1,50",
       "max": "1,60",
@@ -775,6 +876,7 @@ daily_prices = {
     }
   },
   "23007": {
+    "name": "Pimientos tipo padron",
     "local": {
       "min": "2,00",
       "max": "2,00",
@@ -782,6 +884,7 @@ daily_prices = {
     }
   },
   "12900": {
+    "name": "Pi\u00f1a tropical                 ",
     "local": {
       "min": "3,75",
       "max": "5,00",
@@ -789,6 +892,7 @@ daily_prices = {
     }
   },
   "25800": {
+    "name": "Pi\u00f1as de millo",
     "local": {
       "min": "3,00",
       "max": "3,60",
@@ -796,6 +900,7 @@ daily_prices = {
     }
   },
   "13002": {
+    "name": "Platanos extra",
     "local": {
       "min": "1,00",
       "max": "1,10",
@@ -803,6 +908,7 @@ daily_prices = {
     }
   },
   "13003": {
+    "name": "Platanos primera",
     "local": {
       "min": "0,75",
       "max": "0,80",
@@ -810,6 +916,7 @@ daily_prices = {
     }
   },
   "13004": {
+    "name": "Platanos segunda",
     "local": {
       "min": "0,60",
       "max": "0,60",
@@ -817,6 +924,7 @@ daily_prices = {
     }
   },
   "13100": {
+    "name": "Pomelos",
     "local": {
       "min": "1,00",
       "max": "1,20",
@@ -829,6 +937,7 @@ daily_prices = {
     }
   },
   "23100": {
+    "name": "Puerros",
     "local": {
       "min": "0,70",
       "max": "0,80",
@@ -836,6 +945,7 @@ daily_prices = {
     }
   },
   "23200": {
+    "name": "Rabanillas                    ",
     "local": {
       "min": "0,80",
       "max": "1,00",
@@ -843,6 +953,7 @@ daily_prices = {
     }
   },
   "23300": {
+    "name": "Rabanos",
     "local": {
       "min": "1,00",
       "max": "1,20",
@@ -850,6 +961,7 @@ daily_prices = {
     }
   },
   "23415": {
+    "name": "R\u00facula",
     "local": {
       "min": "4,00",
       "max": "4,80",
@@ -857,6 +969,7 @@ daily_prices = {
     }
   },
   "13200": {
+    "name": "Sandias",
     "local": {
       "min": "1,00",
       "max": "1,10",
@@ -864,6 +977,7 @@ daily_prices = {
     }
   },
   "23500": {
+    "name": "Setas",
     "local": {
       "min": "6,50",
       "max": "7,00",
@@ -876,6 +990,7 @@ daily_prices = {
     }
   },
   "23618": {
+    "name": "Tamarillo",
     "local": {
       "min": "1,60",
       "max": "1,80",
@@ -883,6 +998,7 @@ daily_prices = {
     }
   },
   "23617": {
+    "name": "Tomate cherry",
     "local": {
       "min": "2,40",
       "max": "2,50",
@@ -895,6 +1011,7 @@ daily_prices = {
     }
   },
   "23614": {
+    "name": "Tomate ensalada",
     "local": {
       "min": "0,60",
       "max": "0,80",
@@ -907,6 +1024,7 @@ daily_prices = {
     }
   },
   "23603": {
+    "name": "Tomate pera",
     "local": {
       "min": "1,20",
       "max": "1,30",
@@ -914,6 +1032,7 @@ daily_prices = {
     }
   },
   "23605": {
+    "name": "Tomate salsa",
     "local": {
       "min": "0,35",
       "max": "0,50",
@@ -921,6 +1040,7 @@ daily_prices = {
     }
   },
   "23632": {
+    "name": "Tomillo",
     "local": {
       "min": "6,00",
       "max": "7,50",
@@ -928,6 +1048,7 @@ daily_prices = {
     }
   },
   "13318": {
+    "name": "Uvas  red globe",
     "impor": {
       "min": "2,40",
       "max": "2,60",
@@ -935,6 +1056,7 @@ daily_prices = {
     }
   },
   "25301": {
+    "name": "Yuca",
     "impor": {
       "min": "1,80",
       "max": "1,90",
@@ -942,6 +1064,7 @@ daily_prices = {
     }
   },
   "23701": {
+    "name": "Zanahorias de primera",
     "local": {
       "min": "2,00",
       "max": "2,20",
@@ -949,6 +1072,7 @@ daily_prices = {
     }
   },
   "23700": {
+    "name": "Zanahorias de segunda",
     "local": {
       "min": "1,00",
       "max": "1,10",

@@ -160,6 +160,8 @@ function fillInProductData(code) {
 		innerHTML += temporada;
 	}
 	div.innerHTML = innerHTML;
+
+	console.log(daily_prices[code]);
 }
 
 function selectMeanData() {
@@ -618,30 +620,3 @@ function plotLocalFraction(code, year=null) {
 plotSelectedProduct(default_product_code);
 // deployPictureGrid(products, type="frutas");
 // deployPictureGrid(products, type="verduras");
-
-
-let html_url = "https://mercatenerife.com/precios_frame.php?l=1";
-
-
-// $.get(html_url, function(data) {
-// 	console.log(data);
-// })
-
-fetch(html_url, {mode: "no-cors"})
-    .then(function (response) {
-        switch (response.status) {
-            // status "OK"
-            case 200:
-                return response.text();
-            // status "Not Found"
-            case 404:
-                throw response;
-        }
-    })
-    .then(function (template) {
-        console.log(template);
-    })
-    .catch(function (response) {
-        // "Not Found"
-        console.log(response.statusText);
-    });
