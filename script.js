@@ -13,9 +13,9 @@ if (window.matchMedia("(orientation: portrait)").matches) {
    alert("Please use Landscape!");
 }
 
-let backgroundColor = getComputedStyle(document.documentElement)
+const backgroundColor = getComputedStyle(document.documentElement)
     .getPropertyValue("--backgroundColor");
-let fontColor = getComputedStyle(document.documentElement)
+const fontColor = getComputedStyle(document.documentElement)
     .getPropertyValue("--fontColor");
 
 let plotOptions = {
@@ -24,10 +24,16 @@ let plotOptions = {
   "plot_importacion": true
 };
 
+const months = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+ "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
 const local_color = "rgb(9, 133, 208)";
 const impor_color = "rgb(221, 125, 6)";
 const moda_color = "rgb(167, 167, 167)";
 const default_product_code = 21206;
+const selected_button_color = getComputedStyle(document.documentElement)
+    .getPropertyValue("--fancyColor");
+const unselected_button_color = getComputedStyle(document.documentElement)
+    .getPropertyValue("--backgroundColor2");
 let selected_product;
 
 const sum = function(array) {
@@ -126,10 +132,13 @@ function plotSelectedProduct(selected_product_code=default_product_code) {
 	let url = `https://semidanrobaina.com/mercaTenerife/Resized_Photos/${product_pics[selected_product_code]}`;
 	product_pic.style["background-image"] = `url(${url})`;
 
+	changePlotButtonColor();
   plotKilosBarPlot(selected_product_code, plotOptions);
   plotPreciosPlot(selected_product_code, plotOptions);
   plotLocalFraction(selected_product_code);
 	fillInProductData(selected_product_code);
+
+	console.log(getDayPriceDifference(selected_product_code));
 }
 
 function fillInProductData(code) {
@@ -160,9 +169,73 @@ function fillInProductData(code) {
 		innerHTML += temporada;
 	}
 	div.innerHTML = innerHTML;
-
-	console.log(daily_prices[code]);
 }
+
+function getDayPriceDifference(code) {
+	// Computes day prices difference with the mean mode across years
+	// for the same month.
+	let current_date = new Date();
+	let current_month = months[current_date.getMonth()];
+	let day_price = daily_prices[code];
+	if (day_price === undefined) {return "No hay datos disponibles"}
+	let mean_prices= extractPreciosMeanPlotData(code);
+	let day_keys = Object.keys(day_price);
+	let mean_keys = Object.keys(mean_prices);
+	let has_local_data = day_keys.includes("local") && mean_keys.includes("local") && !isNaN(mean_prices.local.moda[current_month]);
+	let has_impor_data = day_keys.includes("importacion") && mean_keys.includes("importacion") && !isNaN(mean_prices.importacion.moda[current_month]);
+
+  const print_diff = function(diff) {
+		let qualifier;
+		if (diff < 0) {qualifier = "más barato"};
+		if (diff > 0) {qualifier = "más caro"};
+		if (diff === 0) {qualifier = "al mismo precio"};
+		let res = `El producto está ${Math.abs(diff).toFixed(2)}% ${qualifier} que el precio medio de ${current_month.capitalize()}`;
+		return res
+	}
+
+	if (has_local_data && has_impor_data) {
+    let out = {};
+		let mean_local_moda = mean_prices.local.moda[current_month];
+		let day_local_moda = parseFloat(day_price.local.moda);
+		let local_diff = (day_local_moda - mean_local_moda) / mean_local_moda;
+		let mean_impor_moda = mean_prices.importacion.moda[current_month];
+		let day_impor_moda = parseFloat(day_price.importacion.moda);
+		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
+		return {local: print_diff(local_diff), importacion: print_diff(impor_diff)}
+
+	} else if (has_local_data) {
+		let mean_local_moda = mean_prices.local.moda[current_month];
+		let day_local_moda = parseFloat(day_price.local.moda);
+		let local_diff = (day_local_moda - mean_local_moda) / mean_local_moda;
+		return {local: print_diff(local_diff)}
+
+	} else if (has_impor_data) {
+		let mean_impor_moda = mean_prices.importacion.moda[current_month];
+		let day_impor_moda = parseFloat(day_price.importacion.moda);
+		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
+		return {importacion: print_diff(impor_diff)}
+	} else {
+		return "No hay datos disponibles"
+	}
+}
+
+function selectMeanOrFullData() {
+	let mean_switch = document.getElementById("mean_data_switch");
+	if (mean_switch.checked) {
+		selectMeanData();
+	} else {
+		selectFullData();
+	}
+}
+
+// function selectLocalOrImportData() {
+// 	let local_switch = document.getElementById("local_data_switch");
+// 	if (local_switch.checked) {
+// 		selectLocalToPlot();
+// 	} else {
+// 		selectImportacionToPlot();
+// 	}
+// }
 
 function selectMeanData() {
   plotOptions.plot_mean_values = true;
@@ -174,19 +247,34 @@ function selectFullData() {
   plotSelectedProduct(selected_product);
 }
 
+function changePlotButtonColor() {
+	let local_button = document.getElementById("select-local-data");
+	let impor_button = document.getElementById("select-importacion-data");
+	if (plotOptions.plot_local) {
+		local_button.style["background-color"] = selected_button_color;
+	} else {
+		local_button.style["background-color"] = unselected_button_color;
+	}
+	if (plotOptions.plot_importacion) {
+		impor_button.style["background-color"] = selected_button_color;
+	} else {
+		impor_button.style["background-color"] = unselected_button_color;
+	}
+}
+
 function selectLocalToPlot() {
   plotOptions.plot_local = !plotOptions.plot_local;
-  if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
-    plotOptions.plot_local = true;
-  }
+  // if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
+  //   plotOptions.plot_local = true;
+  // }
   plotSelectedProduct(selected_product);
 }
 
 function selectImportacionToPlot() {
   plotOptions.plot_importacion = !plotOptions.plot_importacion;
-  if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
-    plotOptions.plot_importacion = true;
-  }
+  // if (!plotOptions.plot_importacion && !plotOptions.plot_local) {
+  //   plotOptions.plot_importacion = true;
+  // }
   plotSelectedProduct(selected_product);
 }
 
@@ -201,8 +289,6 @@ function extractKilosMeanPlotData(code) {
   let local_data = kilos[code].local;
   let impor_data = kilos[code].importacion;
   let fechas = Object.keys(kilos[code].local);
-  const months = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
-   "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
 
   let mean_values = {"local": {}, "importacion": {}};
   for (let month of months) {
@@ -228,8 +314,6 @@ function extractKilosMeanPlotData(code) {
 
 function extractPreciosMeanPlotData(code) {
   let fechas = Object.keys(precios[code].min.local);
-  const months = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
-   "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
   let mean_values = {"local": {"min": {}, "max": {}, "moda": {}},
    "importacion": {"min": {}, "max": {}, "moda": {}}};
   for (let month of months) {

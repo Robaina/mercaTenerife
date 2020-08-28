@@ -21,7 +21,7 @@ for product in products:
     if product.select('td')[2].text.lower().strip() == 'local':
         origen = 'local'
     else:
-        origen = 'impor'
+        origen = 'importacion'
     min_price = product.select('td')[3].text.strip()
     max_price = product.select('td')[4].text.strip()
     mode_price = product.select('td')[5].text.strip()

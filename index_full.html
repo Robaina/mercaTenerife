@@ -14,7 +14,6 @@
     <link rel="icon" type="image/png" href="imgs/basket.png">
 
     <link rel="stylesheet" href="master.css">
-    <link rel="stylesheet" href="switch.css">
     <script src="products.json"></script>
     <script src="mejores_meses.json"></script>
     <script src="daily_prices.json"></script>
@@ -64,25 +63,8 @@
     </div>
 
     <div class="button-container">
-
-      <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="mean_data_switch" tabindex="0" onchange="selectMeanOrFullData();">
-        <label class="onoffswitch-label" for="mean_data_switch">
-          <span class="onoffswitch-inner"></span>
-          <span class="onoffswitch-switch"></span>
-        </label>
-      </div>
-
-      <!-- <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="local_data_switch" tabindex="0" onchange="selectLocalOrImportData();">
-        <label class="onoffswitch-label" for="local_data_switch">
-          <span class="onoffswitch-inner"></span>
-          <span class="onoffswitch-switch"></span>
-        </label>
-      </div> -->
-
-      <!-- <button type="button" class="button" id="select-mean-data" onclick="selectMeanData()">Media</button>
-      <button type="button" class="button" id="select-full-data" onclick="selectFullData()">Completo</button> -->
+      <button type="button" class="button" id="select-mean-data" onclick="selectMeanData()">Media</button>
+      <button type="button" class="button" id="select-full-data" onclick="selectFullData()">Completo</button>
       <button type="button" class="button" id="select-local-data" onclick="selectLocalToPlot()">Local</button>
       <button type="button" class="button" id="select-importacion-data" onclick="selectImportacionToPlot()">Importación</button>
     </div>
