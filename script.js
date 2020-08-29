@@ -189,32 +189,33 @@ function getDayPriceDifference(code) {
 		if (diff < 0) {qualifier = "más barato"};
 		if (diff > 0) {qualifier = "más caro"};
 		if (diff === 0) {qualifier = "al mismo precio"};
-		let res = `El producto está ${Math.abs(diff).toFixed(2)}% ${qualifier} que el precio medio de ${current_month.capitalize()}`;
+		let res = `El producto está un ${100*Math.abs(diff).toFixed(2)}% ${qualifier} que el precio medio de ${current_month.capitalize()}`;
 		return res
 	}
 
 	if (has_local_data && has_impor_data) {
     let out = {};
 		let mean_local_moda = mean_prices.local.moda[current_month];
-		let day_local_moda = parseFloat(day_price.local.moda);
+		let day_local_moda = parseFloat(day_price.local.moda.replace(",", "."));
 		let local_diff = (day_local_moda - mean_local_moda) / mean_local_moda;
 		let mean_impor_moda = mean_prices.importacion.moda[current_month];
-		let day_impor_moda = parseFloat(day_price.importacion.moda);
+		let day_impor_moda = parseFloat(day_price.importacion.moda.replace(",", "."));
 		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
 		return {local: print_diff(local_diff), importacion: print_diff(impor_diff)}
 
-	} else if (has_local_data) {
+	} else if (has_local_data & !has_impor_data) {
 		let mean_local_moda = mean_prices.local.moda[current_month];
-		let day_local_moda = parseFloat(day_price.local.moda);
+		let day_local_moda = parseFloat(day_price.local.moda.replace(",", "."));
 		let local_diff = (day_local_moda - mean_local_moda) / mean_local_moda;
 		return {local: print_diff(local_diff)}
 
-	} else if (has_impor_data) {
+	} else if (has_impor_data & !has_local_data) {
 		let mean_impor_moda = mean_prices.importacion.moda[current_month];
-		let day_impor_moda = parseFloat(day_price.importacion.moda);
+		let day_impor_moda = parseFloat(day_price.importacion.moda.replace(",", "."));
 		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
 		return {importacion: print_diff(impor_diff)}
-	} else {
+
+	} else if (!has_local_data && !has_impor_data) {
 		return "No hay datos disponibles"
 	}
 }
