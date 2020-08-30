@@ -125,7 +125,7 @@ function plotSelectedProduct(selected_product_code=default_product_code) {
   // let selector = document.getElementById("select-list");
   // let selected_product_code = selector[selector.selectedIndex].value;
   selected_product = selected_product_code;
-	let product_name = products[selected_product_code];
+	let product_name = products[selected_product_code] === undefined? "no-photo": products[selected_product_code];
 	let name_div = document.getElementById("product_name");
 	name_div.innerHTML = `<p>${product_name}</p>`;
 	let product_pic = document.getElementById("product_pic");
