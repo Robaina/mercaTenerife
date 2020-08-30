@@ -125,12 +125,13 @@ function plotSelectedProduct(selected_product_code=default_product_code) {
   // let selector = document.getElementById("select-list");
   // let selected_product_code = selector[selector.selectedIndex].value;
   selected_product = selected_product_code;
-	let product_name = products[selected_product_code] === undefined? "no-photo": products[selected_product_code];
+	let product_name = products[selected_product_code];
 	let name_div = document.getElementById("product_name");
 	name_div.innerHTML = `<p>${product_name}</p>`;
-	let product_pic = document.getElementById("product_pic");
-	let url = `https://semidanrobaina.com/mercaTenerife/Resized_Photos/${product_pics[selected_product_code]}`;
-	product_pic.style["background-image"] = `url(${url})`;
+	let product_pic_div = document.getElementById("product_pic");
+	let pic_name = product_pics[selected_product_code] === undefined? "no_photo.jpg": product_pics[selected_product_code];
+	let pic_url = `https://semidanrobaina.com/mercaTenerife/Resized_Photos/${pic_name}`;
+	product_pic_div.style["background-image"] = `url(${pic_url})`;
 
 	changePlotButtonColor();
   plotKilosBarPlot(selected_product_code, plotOptions);
