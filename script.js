@@ -202,18 +202,22 @@ function getDayPriceDifference(code) {
 		let mean_impor_moda = mean_prices.importacion.moda[current_month];
 		let day_impor_moda = parseFloat(day_price.importacion.moda.replace(",", "."));
 		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
+		console.log(day_impor_moda, mean_impor_moda);
+		console.log(day_local_moda, mean_local_moda);
 		return {local: print_diff(local_diff), importacion: print_diff(impor_diff)}
 
 	} else if (has_local_data & !has_impor_data) {
 		let mean_local_moda = mean_prices.local.moda[current_month];
 		let day_local_moda = parseFloat(day_price.local.moda.replace(",", "."));
 		let local_diff = (day_local_moda - mean_local_moda) / mean_local_moda;
+		console.log(day_local_moda, mean_local_moda);
 		return {local: print_diff(local_diff)}
 
 	} else if (has_impor_data & !has_local_data) {
 		let mean_impor_moda = mean_prices.importacion.moda[current_month];
 		let day_impor_moda = parseFloat(day_price.importacion.moda.replace(",", "."));
 		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
+		console.log(day_impor_moda, mean_impor_moda);
 		return {importacion: print_diff(impor_diff)}
 
 	} else if (!has_local_data && !has_impor_data) {

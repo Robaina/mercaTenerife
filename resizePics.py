@@ -23,19 +23,6 @@ def resize_aspect_fit():
             image = image.resize((new_image_height, new_image_length), Image.ANTIALIAS)
             image.save(file_path + extension, 'JPEG', quality=90)
 
-            # # Create dict of products with available picture
-            # file_name, _ = os.path.splitext(item)
-            # split_name = file_name.split('-')
-            # if len(split_name) > 1:
-            #     for name in split_name:
-            #         product_pics[name] = file_name + extension
-            # else:
-            #     product_pics[split_name[0]] = file_name + extension
-            # with open('product_pics.json', 'w') as json_file:
-            #     json_file.writelines("product_pics = ")
-            #     json.dump(product_pics, json_file)
-            #     json_file.close()
-
 
 def createDictOfProductPhotos():
     # Create dict of products with available picture
