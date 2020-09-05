@@ -5,3 +5,9 @@
 * Representar de forma global que productos son mayoritariamente producidos en la isla, y cuales son importados.
 * Reconstruir un dendrograma  basandose en alguna metrica de similitud entre productos, e.g., teniendo en cuenta la evolucion de las abundancias y de los precios a lo largo del anio.
 * Clasificar productos basanodose en los kilos totales producidos por anio. Hay productos que se producen en largas cantidades otros en menor cantidad. Aunque claro, habria que corregir por alguna medida de consumo medio de cada producto, e.g., obviamente se consumen mas kilos de papas que de hierba huerto...
+
+---
+
+* Actualizar datos 2020
+* Anadir precios al alza o a la baja con flecha roja o verde
+* CSS!
