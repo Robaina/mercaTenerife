@@ -35,6 +35,7 @@ const selected_button_color = getComputedStyle(document.documentElement)
 const unselected_button_color = getComputedStyle(document.documentElement)
     .getPropertyValue("--backgroundColor2");
 let selected_product;
+let grid_deployed = false;
 
 const sum = function(array) {
   return array.reduce((a, b) => a + b, 0);
@@ -85,9 +86,18 @@ function getUniqueValues(array) {
 //   plotSelectedProduct(default_product_code);
 // }
 
-function deployPictureGrid(products, type="frutas") {
+function emptyProductsGrid() {
 	let grid = document.getElementById("products_grid");
 	grid.innerHTML = "";
+	grid_deployed = false;
+}
+
+function deployPictureGrid(products, type="frutas") {
+	/*
+	type: "frutas, verduras or papas"
+	*/
+	emptyProductsGrid();
+	let grid = document.getElementById("products_grid");
 	let product_codes = product_classification[type];
   for (let code of product_codes) {
     let photo_name = Object.keys(
@@ -103,18 +113,30 @@ function deployPictureGrid(products, type="frutas") {
 		grid_item.appendChild(grid_item_title);
     grid_item.onclick = function(elem) {
       plotSelectedProduct(elem.target.id);
-			grid.innerHTML = "";
+			emptyProductsGrid();
 			grid.scrollIntoView();
     };
     grid.appendChild(grid_item);
   }
+	grid_deployed = true;
 }
 
 function selectFruits() {
-	deployPictureGrid(products, type="frutas");
+	if (grid_deployed) {
+		emptyProductsGrid();
+	} else {
+		deployPictureGrid(products, type="frutas");
+	}
+	// grid_deployed = !grid_deployed;
 }
+
 function selectVeggies() {
-	deployPictureGrid(products, type="verduras");
+	if (grid_deployed) {
+		emptyProductsGrid();
+	} else {
+		deployPictureGrid(products, type="verduras");
+	}
+	// grid_deployed = !grid_deployed;
 }
 
 function getKeyByValue(object, value) {
@@ -139,7 +161,7 @@ function plotSelectedProduct(selected_product_code=default_product_code) {
   plotLocalFraction(selected_product_code);
 	fillInProductData(selected_product_code);
 
-	console.log(getDayPriceDifference(selected_product_code));
+	console.log(displayDailyProductPrice(selected_product_code));
 }
 
 function fillInProductData(code) {
@@ -172,9 +194,18 @@ function fillInProductData(code) {
 	div.innerHTML = innerHTML;
 }
 
-function getDayPriceDifference(code) {
+function getLocalProductDayPrice(code) {
+	return {min: daily_prices[code].local.min, max: daily_prices[code].local.max, moda: daily_prices[code].local.moda.replace(",", ".")}
+}
+
+function getImporProductDayPrice(code) {
+	return {min: daily_prices[code].importacion.min, max: daily_prices[code].importacion.max, moda: daily_prices[code].importacion.moda.replace(",", ".")}
+}
+
+function displayDailyProductPrice(code) {
 	// Computes day prices difference with the mean mode across years
 	// for the same month.
+
 	let current_date = new Date();
 	let current_month = months[current_date.getMonth()];
 	let day_price = daily_prices[code];
@@ -196,28 +227,32 @@ function getDayPriceDifference(code) {
 
 	if (has_local_data && has_impor_data) {
     let out = {};
+		// let min_impor = daily_prices[code].importacion.min;
+		// let max_impor = daily_prices[code].importacion.max;
+		// let min_local = daily_prices[code].local.min;
+		// let max_local = daily_prices[code].local.max;
 		let mean_local_moda = mean_prices.local.moda[current_month];
 		let day_local_moda = parseFloat(day_price.local.moda.replace(",", "."));
 		let local_diff = (day_local_moda - mean_local_moda) / mean_local_moda;
 		let mean_impor_moda = mean_prices.importacion.moda[current_month];
 		let day_impor_moda = parseFloat(day_price.importacion.moda.replace(",", "."));
 		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
-		console.log(day_impor_moda, mean_impor_moda);
-		console.log(day_local_moda, mean_local_moda);
 		return {local: print_diff(local_diff), importacion: print_diff(impor_diff)}
 
 	} else if (has_local_data & !has_impor_data) {
+		let min_local = daily_prices[code].local.min;
+		let max_local = daily_prices[code].local.max;
 		let mean_local_moda = mean_prices.local.moda[current_month];
 		let day_local_moda = parseFloat(day_price.local.moda.replace(",", "."));
 		let local_diff = (day_local_moda - mean_local_moda) / mean_local_moda;
-		console.log(day_local_moda, mean_local_moda);
 		return {local: print_diff(local_diff)}
 
 	} else if (has_impor_data & !has_local_data) {
+		let min_impor = daily_prices[code].importacion.min;
+		let max_impor = daily_prices[code].importacion.max;
 		let mean_impor_moda = mean_prices.importacion.moda[current_month];
 		let day_impor_moda = parseFloat(day_price.importacion.moda.replace(",", "."));
 		let impor_diff = (day_impor_moda - mean_impor_moda) / mean_impor_moda;
-		console.log(day_impor_moda, mean_impor_moda);
 		return {importacion: print_diff(impor_diff)}
 
 	} else if (!has_local_data && !has_impor_data) {
