@@ -174,11 +174,14 @@ function fillInProductData(code) {
 
 	let innerHTML = '';
 
-  let precio_dia_local = `<p>Precio día local: ${local_day_price.moda} € / Kg</p>`;
-	innerHTML += precio_dia_local;
-	let precio_dia_impor = `<p>Precio día importación: ${impor_day_price.moda} € / Kg</p>`;
-	innerHTML += precio_dia_impor;
-
+	if (local_day_price !== undefined) {
+		let precio_dia_local = `<p>Precio día local: ${local_day_price.moda} € / Kg</p>`;
+		innerHTML += precio_dia_local;
+	}
+  if (impor_day_price !== undefined) {
+		let precio_dia_impor = `<p>Precio día importación: ${impor_day_price.moda} € / Kg</p>`;
+		innerHTML += precio_dia_impor;
+	}
 	if (p_values.local_min !== Infinity) {
 		let precio_local = `<p>Precio local: ${p_values.local_min} - ${p_values.local_max} € / Kg</p>`;
 		innerHTML += precio_local;
@@ -203,11 +206,19 @@ function fillInProductData(code) {
 }
 
 function getLocalProductDayPrice(code) {
-	return {min: daily_prices[code].local.min, max: daily_prices[code].local.max, moda: daily_prices[code].local.moda.replace(",", ".")}
+	try {
+		return {min: daily_prices[code].local.min, max: daily_prices[code].local.max, moda: daily_prices[code].local.moda.replace(",", ".")}
+  } catch {
+		return undefined
+	}
 }
 
 function getImporProductDayPrice(code) {
-	return {min: daily_prices[code].importacion.min, max: daily_prices[code].importacion.max, moda: daily_prices[code].importacion.moda.replace(",", ".")}
+	try {
+		return {min: daily_prices[code].importacion.min, max: daily_prices[code].importacion.max, moda: daily_prices[code].importacion.moda.replace(",", ".")}
+  } catch {
+	return undefined
+  }
 }
 
 function displayDailyProductPrice(code) {
