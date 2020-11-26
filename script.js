@@ -167,10 +167,18 @@ function plotSelectedProduct(selected_product_code=default_product_code) {
 function fillInProductData(code) {
 	let k_values = getKilosExtremeValues(code);
 	let p_values = getPreciosExtremeValues(code);
+	let impor_day_price = getImporProductDayPrice(code);
+	let local_day_price = getLocalProductDayPrice(code);
 	let product_best_months = mejores_meses[code];
 	let div = document.getElementById("product_data");
 
 	let innerHTML = '';
+
+  let precio_dia_local = `<p>Precio día local: ${local_day_price.moda} € / Kg</p>`;
+	innerHTML += precio_dia_local;
+	let precio_dia_impor = `<p>Precio día importación: ${impor_day_price.moda} € / Kg</p>`;
+	innerHTML += precio_dia_impor;
+
 	if (p_values.local_min !== Infinity) {
 		let precio_local = `<p>Precio local: ${p_values.local_min} - ${p_values.local_max} € / Kg</p>`;
 		innerHTML += precio_local;
