@@ -9,9 +9,9 @@ Object.defineProperty(String.prototype, "capitalize", {
 	}
 });
 
-if (window.matchMedia("(orientation: portrait)").matches) {
-   alert("Please use Landscape!");
-}
+// if (window.matchMedia("(orientation: portrait)").matches) {
+//    alert("Please use Landscape!");
+// }
 
 const backgroundColor = getComputedStyle(document.documentElement)
     .getPropertyValue("--backgroundColor");
@@ -143,6 +143,16 @@ function getKeyByValue(object, value) {
 	return Object.keys(object).find(key => object[key] === value);
 }
 
+function hideProductSelector() {
+	let div = document.getElementsByClassName("product-selector")[0];
+	div.style.display = "none";
+}
+
+function displayProductSelector() {
+	let div = document.getElementsByClassName("product-selector")[0];
+	div.style.display = "block";
+}
+
 function plotSelectedProduct(selected_product_code=default_product_code) {
   // let selector = document.getElementById("select-list");
   // let selected_product_code = selector[selector.selectedIndex].value;
@@ -175,29 +185,29 @@ function fillInProductData(code) {
 	let innerHTML = '';
 
 	if (local_day_price !== undefined) {
-		let precio_dia_local = `<p>Precio día local: ${local_day_price.moda} € / Kg</p>`;
+		let precio_dia_local = `<p>Precio de hoy (local): ${local_day_price.moda} € / Kg</p>`;
 		innerHTML += precio_dia_local;
 	}
   if (impor_day_price !== undefined) {
-		let precio_dia_impor = `<p>Precio día importación: ${impor_day_price.moda} € / Kg</p>`;
+		let precio_dia_impor = `<p>Precio de hoy (importación): ${impor_day_price.moda} € / Kg</p>`;
 		innerHTML += precio_dia_impor;
 	}
-	if (p_values.local_min !== Infinity) {
-		let precio_local = `<p>Precio local: ${p_values.local_min} - ${p_values.local_max} € / Kg</p>`;
-		innerHTML += precio_local;
-	}
-	if (p_values.impor_min !== Infinity) {
-		let precio_impor = `<p>Precio importación: ${p_values.impor_min} - ${p_values.impor_max} € / Kg</p>`;
-		innerHTML += precio_impor;
-	}
-	if (k_values.local_max !== 0) {
-		let kilos_local = `<p>Cantidad mensual local: ${k_values.local_min} - ${k_values.local_max} Kg</p>`;
-		innerHTML += kilos_local;
-	}
-	if (k_values.impor_max !== 0) {
-		let kilos_impor = `<p>Cantidad mensual importación: ${k_values.impor_min} - ${k_values.impor_max} Kg</p>`;
-		innerHTML += kilos_impor;
-	}
+	// if (p_values.local_min !== Infinity) {
+	// 	let precio_local = `<p>Precio local: ${p_values.local_min} - ${p_values.local_max} € / Kg</p>`;
+	// 	innerHTML += precio_local;
+	// }
+	// if (p_values.impor_min !== Infinity) {
+	// 	let precio_impor = `<p>Precio importación: ${p_values.impor_min} - ${p_values.impor_max} € / Kg</p>`;
+	// 	innerHTML += precio_impor;
+	// }
+	// if (k_values.local_max !== 0) {
+	// 	let kilos_local = `<p>Cantidad mensual local: ${k_values.local_min} - ${k_values.local_max} Kg</p>`;
+	// 	innerHTML += kilos_local;
+	// }
+	// if (k_values.impor_max !== 0) {
+	// 	let kilos_impor = `<p>Cantidad mensual importación: ${k_values.impor_min} - ${k_values.impor_max} Kg</p>`;
+	// 	innerHTML += kilos_impor;
+	// }
 	if (product_best_months.length > 0) {
 		let temporada = `<p>Mayor producción: ${product_best_months.join(" - ")}</p>`;
 		innerHTML += temporada;
